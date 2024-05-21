@@ -2,8 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
-import 'package:hidjab_user/utils/styles/app_text_style.dart';
-
 import '../../../utils/icons/AppIcons.dart';
 import '../../../utils/styles/size.dart';
 
@@ -105,36 +103,8 @@ class ShopContainer extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                        backgroundColor: Colors.grey,
-                        content: InkWell(
-                          onTap: onTap,
-                          child: Row(
-                            children: [
-                              Text(
-                                'Delete this product from basket',
-                                style: AppTextStyle.width500.copyWith(
-                                  fontSize: 14.w,
-                                ),
-                              ),
-                              Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                                size: 20.w,
-                              ),
-                            ],
-                          ),
-                        )),
-                  );
-                },
-                icon: SizedBox(
-                  width: 24.w,
-                  height: 24.h,
-                  child: SvgPicture.asset(AppIcons.infoMenuButton),
-                ),
+                onPressed: onTap,
+                icon: const Icon(Icons.delete_forever_rounded, color: Colors.red,),
               ),
             ],
           ),

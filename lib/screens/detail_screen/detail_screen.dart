@@ -103,7 +103,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           children: [
                             IconButton(
                               style: IconButton.styleFrom(
-                                  padding: EdgeInsets.zero),
+                                padding: EdgeInsets.zero,
+                              ),
                               onPressed: () {},
                               icon: SvgPicture.asset(
                                 AppIcons.arrowBack,
@@ -112,7 +113,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             IconButton(
                               style: IconButton.styleFrom(
-                                  padding: EdgeInsets.zero),
+                                padding: EdgeInsets.zero,
+                              ),
                               onPressed: () {},
                               icon: SvgPicture.asset(
                                 AppIcons.arrowNext,
@@ -155,7 +157,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             width: 10.w,
                           ),
                           SvgPicture.asset(AppIcons.dot),
-
                           SizedBox(
                             width: 10.w,
                           ),

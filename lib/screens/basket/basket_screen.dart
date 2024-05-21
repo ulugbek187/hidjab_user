@@ -14,7 +14,6 @@ import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../utils/icons/appIcons.dart';
 
 class BasketScreen extends StatefulWidget {
@@ -138,11 +137,55 @@ class _BasketScreenState extends State<BasketScreen> {
                                   );
                             },
                             onTap: () {
-                              context.read<BasketBloc>().add(
-                                    DeleteBasketEvent(
-                                      uuid: state.baskets[index].uuid,
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: Text(
+                                    'Warning!!!',
+                                    style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 20.w,
                                     ),
-                                  );
+                                  ),
+                                  content: SizedBox(
+                                    height: 50.h,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+
+                                        Text("Ushbu Mahsulotni aniq ochirib tawlamoqchimisiz?", style: AppTextStyle.width600,),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                                      child: Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          fontSize: 14.w,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        context.read<BasketBloc>().add(
+                                          DeleteBasketEvent(
+                                            uuid: state.baskets[index].uuid,
+                                          ),
+                                        );
+                                        Navigator.pop(context, 'OK');
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: TextStyle(
+                                          fontSize: 14.w,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
                             },
                           ),
                         ),
