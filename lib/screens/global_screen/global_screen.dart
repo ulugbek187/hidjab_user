@@ -554,7 +554,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 image: state.products[index].imageUrl,
                                 firstTitle: state.products[index].productName,
                                 secondTitle:
-                                    "${state.products[index].description} Ram/Rom",
+                                    "${state.products[index].price} Ram/Rom",
                                 onTap: () {
                                   Navigator.push(
                                     context,

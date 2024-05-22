@@ -150,6 +150,7 @@ class _BasketScreenState extends State<BasketScreen> {
                                   content: SizedBox(
                                     height: 50.h,
                                     child: Column(
+
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
 

@@ -167,13 +167,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               rate: widget.category == 'All'
                                   ? state.products[index].rate.toString()
                                   : ctPr[index].rate.toString(),
-                              order: widget.category == 'All'
-                                  ? state.products[index].countOfOrders
-                                      .toString()
-                                  : ctPr[index].countOfOrders.toString(),
+                              // order: widget.category == 'All'
+                              //     ? state.products[index].countOfOrders
+                              //         .toString()
+                              //     : ctPr[index].countOfOrders.toString(),
                               productName: widget.category == 'All'
                                   ? state.products[index].productName
-                                  : ctPr[index].productName,
+                                  : ctPr[index].productName, order: '',
                             );
                           },
                         )
@@ -208,11 +208,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   : ctPr[index].productName,
                               rate: widget.category == 'All'
                                   ? state.products[index].rate.toString()
-                                  : ctPr[index].rate.toString(),
-                              order: widget.category == 'All'
-                                  ? state.products[index].countOfOrders
-                                      .toString()
-                                  : ctPr[index].countOfOrders.toString(),
+                                  : ctPr[index].rate.toString(), order: '',
+                              // order: widget.category == 'All'
+                              //     ? state.products[index].countOfOrders
+                              //         .toString()
+                              //     : ctPr[index].countOfOrders.toString(),
                             );
                           },
                         ),
@@ -242,9 +242,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 );
                               },
                               rate: state.products[index].rate.toString(),
-                              productName: state.products[index].productName,
-                              order: state.products[index].countOfOrders
-                                  .toString(),
+                              productName: state.products[index].productName, order: '',
+                              // order: state.products[index].countOfOrders
+                              //     .toString(),
                             ),
                           ),
                         ),

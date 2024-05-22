@@ -106,7 +106,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       List<ProductModel> products = networkResponse.data;
 
       for (var element in products) {
-        if (element.rate > 4.5) {
+        if (int.parse(element.rate) > 4.5) {
           recommendedProducts.add(element);
         }
 

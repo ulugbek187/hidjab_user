@@ -7,7 +7,6 @@ import 'package:hidjab_user/bloc/product/product_bloc.dart';
 import 'package:hidjab_user/data/models/product_model.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
-import 'package:hidjab_user/utils/functions/utility_functions.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import '../../bloc/product/product_state.dart';
@@ -31,7 +30,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    List<String> images = splitImages(widget.productModel.images);
+    // List<String> images = splitImages(widget.productModel.images);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
@@ -69,17 +68,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           borderRadius: BorderRadius.zero,
                           color: AppColors.white,
                           border: Border.all(width: 1, color: AppColors.black)),
-                      child: PageView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(
-                          images.length,
-                          (index) => Image.network(
-                            images[index],
-                            height: 305.h,
-                            width: width,
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                      child: Image.network(
+                        widget.productModel.imageUrl,
+                        height: 305.h,
+                        width: width,
+                        fit: BoxFit.fill,
                       ),
                     ),
                     Positioned(
@@ -160,8 +153,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           SizedBox(
                             width: 10.w,
                           ),
-                          Text(widget.productModel.countOfOrders.toString(),
-                              style: AppTextStyle.width500),
+                          // Text(widget.productModel.countOfOrders.toString(),
+                          //     style: AppTextStyle.width500),
                         ],
                       ),
                       SizedBox(
@@ -192,16 +185,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             onTap: () {
                               BasketModel basketModel = BasketModel(
                                 imageUrl: widget.productModel.imageUrl,
-                                categoryName: widget.productModel.categoryName,
-                                images: widget.productModel.images,
-                                description: widget.productModel.description,
+                                // categoryName: widget.productModel.categoryName,
+                                // images: widget.productModel.images,
+                                // description: widget.productModel.description,
                                 price: widget.productModel.price,
                                 productName: widget.productModel.productName,
-                                rate: widget.productModel.rate,
-                                modelName: widget.productModel.modelName,
+                                // rate: widget.productModel.rate,
+                                // modelName: widget.productModel.modelName,
                                 allPrice: widget.productModel.price,
                                 countOfProducts: 1,
-                                uuid: '',
+                                uuid: '', categoryName: '', images: '', description: '', rate: 2, modelName: '',
                               );
                               context.read<BasketBloc>().add(
                                     AddToBasketEvent(
@@ -290,19 +283,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.productModel.modelName,
-                                  style: AppTextStyle.width500.copyWith(
-                                      color: AppColors.black, fontSize: 16)),
+                              // Text(widget.productModel.modelName,
+                              //     style: AppTextStyle.width500.copyWith(
+                              //         color: AppColors.black, fontSize: 16)),
                               Text(
                                   "${widget.productModel.rate.toString()} ⭐️⭐️⭐️⭐️",
                                   style: AppTextStyle.width500.copyWith(
                                       color: AppColors.black, fontSize: 16)),
-                              Text(widget.productModel.globalCategory,
-                                  style: AppTextStyle.width500.copyWith(
-                                      color: AppColors.black, fontSize: 16)),
-                              Text(widget.productModel.countOfOrders.toString(),
-                                  style: AppTextStyle.width500.copyWith(
-                                      color: AppColors.black, fontSize: 16)),
+                              // Text(widget.productModel.globalCategory,
+                              //     style: AppTextStyle.width500.copyWith(
+                              //         color: AppColors.black, fontSize: 16)),
+                              // Text(widget.productModel.countOfOrders.toString(),
+                              //     style: AppTextStyle.width500.copyWith(
+                              //         color: AppColors.black, fontSize: 16)),
                             ],
                           ),
                         ],
@@ -430,9 +423,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   },
                                   rate: state.products[index].rate.toString(),
                                   productName:
-                                      state.products[index].productName,
-                                  order: state.products[index].countOfOrders
-                                      .toString(),
+                                      state.products[index].productName, order: '',
+                                  // order: state.products[index].countOfOrders
+                                  //     .toString(),
                                 ),
                               ),
                             ),

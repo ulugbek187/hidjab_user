@@ -50,19 +50,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBKMl9aPPjRUJfJy1AtyEyXVa3WETLd6MU',
-    appId: '1:272990590704:android:2a76aa9a814389654b9435',
-    messagingSenderId: '272990590704',
-    projectId: 'imthon-ohirgi',
-    storageBucket: 'imthon-ohirgi.appspot.com',
+    apiKey: 'AIzaSyCsqFNLct_bQF0UXbU3707fKDw9Cw_LCes',
+    appId: '1:786119628442:android:0d3d5eb10f50ef5c84b123',
+    messagingSenderId: '786119628442',
+    projectId: 'app-hidjab',
+    storageBucket: 'app-hidjab.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAL-00dZF23jC7yuUwuKEXqdApdpklEmus',
-    appId: '1:272990590704:ios:545b5107295fe7a04b9435',
-    messagingSenderId: '272990590704',
-    projectId: 'imthon-ohirgi',
-    storageBucket: 'imthon-ohirgi.appspot.com',
-    iosBundleId: 'com.example.ntExam4',
+    apiKey: 'AIzaSyBHS6WPstyP11ueEsrNavuCXSjkt40PjYY',
+    appId: '1:786119628442:ios:a55eaa69038e10b084b123',
+    messagingSenderId: '786119628442',
+    projectId: 'app-hidjab',
+    storageBucket: 'app-hidjab.appspot.com',
+    androidClientId: '786119628442-31e4t3f0ki0p9c4a923g1rqoht1dv76p.apps.googleusercontent.com',
+    iosClientId: '786119628442-0qp46l1u9s0m50i28q9s9sv5kkubm3h1.apps.googleusercontent.com',
+    iosBundleId: 'com.example.hidjabUser',
   );
 }

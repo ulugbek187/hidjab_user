@@ -43,7 +43,7 @@ List<ProductModel> getProductsByCategory(
     List<ProductModel> allProducts, String globalCategoryName) {
   List<ProductModel> categoryProducts = [];
   for (var element in allProducts) {
-    if (element.globalCategory == globalCategoryName.toLowerCase()) {
+    if (element.categoryId == globalCategoryName.toLowerCase()) {
       categoryProducts.add(element);
     }
   }
@@ -54,7 +54,7 @@ List<ProductModel> getProductsByCategory(
 List<ProductModel> getRecommendedProducts(List<ProductModel> products) {
   List<ProductModel> recommendedProducts = [];
   for (var element in products) {
-    if (element.rate >= 4.5) {
+    if (int.parse(element.rate) >= 4.5) {
       recommendedProducts.add(element);
     }
   }
