@@ -30,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Future.microtask(
-      () => context.read<ProductBloc>().add(
-            GetProductsEvent(),
-          ),
+          () => context.read<ProductBloc>().add(
+        GetProductsEvent(),
+      ),
     );
     super.initState();
   }
@@ -83,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     await Future.delayed(const Duration(seconds: 5));
                     if (!context.mounted) return;
                     context.read<ProductBloc>().add(
-                          GetProductsEvent(),
-                        );
+                      GetProductsEvent(),
+                    );
                   },
                 ),
               ),
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     }),
                                 ...List.generate(
                                   state.categories.length,
-                                  (index) => CategoryButton(
+                                      (index) => CategoryButton(
                                     title: state.categories[index].categoryName,
                                     onTap: () {
                                       Navigator.pushNamed(
@@ -226,11 +226,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           ...List.generate(
                             state.products.length,
-                            (index) => FourMethodTovarITem(
+                                (index) => FourMethodTovarITem(
                               image: state.products[index].imageUrl,
                               firstTitle: state.products[index].productName,
                               secondTitle:
-                                  state.products[index].price.toString(),
+                              state.products[index].price.toString(),
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -254,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Column(
                           children: List.generate(
                             state.categories.length,
-                            (index) => Container(
+                                (index) => Container(
                               width: double.infinity,
                               decoration: const BoxDecoration(
                                 color: AppColors.white,
@@ -365,42 +365,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Container(
                       color: Colors.white,
-                      child: SizedBox(
-                        height: height / 1.4,
-                        child: GridView.count(
-                          // primary: false,
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 20.w,
-                            vertical: 20.h,
-                          ),
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.68,
-                          children: [
-                            ...List.generate(
-                              state.products.length,
-                              (index) => TwoMethodTovarITem(
-                                image: state.products[index].imageUrl,
-                                firstTitle: state.products[index].productName,
-                                secondTitle:
-                                    "${state.products[index].price} Ram/Rom",
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailsScreen(
-                                        productModel: state.products[index],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          ...List.generate(
+                            state.products.length,
+                                (index) => TwoMethodTovarITem(
+                              image: state.products[index].imageUrl,
+                              firstTitle: state.products[index].productName,
+                              secondTitle:
+                              "${state.products[index].price} Ram/Rom",
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProductDetailsScreen(
+                                          productModel: state.products[index],
+                                        ),
+                                  ),
+                                );
+                              },
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -415,10 +403,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _searchProduct() {
     context.read<ProductBloc>().add(
-          SearchProductEvent(
-            input: textEditingController.text,
-          ),
-        );
+      SearchProductEvent(
+        input: textEditingController.text,
+      ),
+    );
   }
 
   @override

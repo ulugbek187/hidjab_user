@@ -76,7 +76,7 @@ class MyDrawer extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 RouteNames.categoryScreen,
-                arguments: "All",
+                arguments: ["All"],
               );
             },
           ),
