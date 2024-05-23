@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hidjab_user/screens/routes.dart';
+import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 
-import '../../../utils/icons/appIcons.dart';
 import '../../../utils/styles/app_text_style.dart';
 
 class MyDrawer extends StatelessWidget {

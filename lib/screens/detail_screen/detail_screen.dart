@@ -7,11 +7,11 @@ import 'package:hidjab_user/bloc/product/product_bloc.dart';
 import 'package:hidjab_user/data/models/product_model.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
+import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import '../../bloc/product/product_state.dart';
 import '../../data/models/basket_model.dart';
-import '../../utils/icons/AppIcons.dart';
 import '../../utils/styles/app_text_style.dart';
 import '../category_screen/widgets/grid_view_items.dart';
 

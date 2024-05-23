@@ -6,19 +6,17 @@ import 'package:hidjab_user/bloc/category/category_state.dart';
 import 'package:hidjab_user/bloc/product/product_event.dart';
 import 'package:hidjab_user/bloc/product/product_state.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
-import 'package:hidjab_user/screens/category_screen/category_screen.dart';
 import 'package:hidjab_user/screens/detail_screen/detail_screen.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_drawer.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_text_field.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
-import 'package:hidjab_user/utils/constans/app_constans.dart';
+import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import '../../bloc/product/product_bloc.dart';
-import '../../utils/icons/appIcons.dart';
 import 'widgets/birinichi_turdagi_tovarlar_item.dart';
 
 class HomeScreen extends StatefulWidget {

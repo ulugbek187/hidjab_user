@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import '../../../utils/colors/app_colors.dart';
-import '../../../utils/icons/AppIcons.dart';
 
 class ListContainerView extends StatelessWidget {
   const ListContainerView(

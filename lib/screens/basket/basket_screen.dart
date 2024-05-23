@@ -10,7 +10,7 @@ import 'package:hidjab_user/screens/basket/widgets/check.dart';
 import 'package:hidjab_user/screens/basket/widgets/shop_items.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
 import 'package:hidjab_user/utils/functions/utility_functions.dart';
-import 'package:hidjab_user/utils/icons/AppIcons.dart';
+import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';

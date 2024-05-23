@@ -7,8 +7,8 @@ import 'package:hidjab_user/screens/category_screen/widgets/grid_view_items.dart
 import 'package:hidjab_user/screens/category_screen/widgets/sort_items.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
 import 'package:hidjab_user/screens/routes.dart';
+import 'package:hidjab_user/utils/icons/app_icons.dart';
 import '../../bloc/product/product_event.dart';
-import '../../utils/icons/appIcons.dart';
 import '../../utils/styles/app_text_style.dart';
 import '../../utils/styles/size.dart';
 import '../detail_screen/detail_screen.dart';
