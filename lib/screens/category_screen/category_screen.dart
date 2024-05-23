@@ -7,9 +7,7 @@ import 'package:hidjab_user/screens/category_screen/widgets/grid_view_items.dart
 import 'package:hidjab_user/screens/category_screen/widgets/sort_items.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
 import 'package:hidjab_user/screens/routes.dart';
-import 'package:hidjab_user/utils/functions/utility_functions.dart';
 import '../../bloc/product/product_event.dart';
-import '../../data/models/product_model.dart';
 import '../../utils/icons/appIcons.dart';
 import '../../utils/styles/app_text_style.dart';
 import '../../utils/styles/size.dart';
@@ -20,7 +18,7 @@ import 'widgets/category_list_items.dart';
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key, required this.category});
 
-  final String category;
+  final List<String> category;
 
   @override
   State<CategoryScreen> createState() => _CategoryScreenState();
@@ -30,32 +28,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
   final TextEditingController searchController = TextEditingController();
   bool isGridView = true;
   TextEditingController textEditingController = TextEditingController();
-  List<ProductModel> ctPr = [];
-
-  _getCategoryProductsForCT(List<ProductModel> pr, String categoryName) {
-    ctPr = getProductsByCategory(
-      pr,
-      categoryName,
-    );
-  }
-
-  @override
-  void initState() {
-    Future.microtask(
-      () => context.read<ProductBloc>().add(
-            GetProductsEvent(),
-          ),
-    );
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    widget.category[0] == "All"
+        ? context.read<ProductBloc>().add(
+              GetProductsEvent(),
+            )
+        : context.read<ProductBloc>().add(
+              GetProductsByCategoryId(
+                categoryDocId: widget.category[0],
+              ),
+            );
+
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Categories"),
+        title: Text(widget.category[0] == "All" ? "ALL CATEGORIES" : widget.category[1].toUpperCase()),
         actions: [
           SvgPicture.asset(AppIcons.carts),
           SizedBox(
@@ -71,10 +61,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
         padding: const EdgeInsets.all(15.0),
         child: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
-            _getCategoryProductsForCT(
-              state.products,
-              catName(widget.category),
-            );
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,6 +72,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     onChanged: (value) async {
                       _searchProduct();
                       await Future.delayed(const Duration(seconds: 5));
+                      if (!context.mounted) return;
                       context.read<ProductBloc>().add(
                             GetProductsEvent(),
                           );
@@ -141,74 +128,80 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             childAspectRatio:
                                 0.6, // Adjust aspect ratio as needed
                           ),
-                          itemCount: widget.category == 'All'
+                          itemCount: widget.category[0] == 'All'
                               ? state.products.length
-                              : ctPr.length,
+                              : state.categoryProducts.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GridViewContainer(
-                              image: widget.category == 'All'
+                              image: widget.category[0] == 'All'
                                   ? state.products[index].imageUrl
-                                  : ctPr[index].imageUrl,
-                              price: widget.category == 'All'
+                                  : state.categoryProducts[index].imageUrl,
+                              price: widget.category[0] == 'All'
                                   ? state.products[index].price.toString()
-                                  : ctPr[index].price.toString(),
+                                  : state.categoryProducts[index].price
+                                      .toString(),
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductDetailsScreen(
-                                      productModel: widget.category == 'All'
+                                      productModel: widget.category[0] == 'All'
                                           ? state.products[index]
-                                          : ctPr[index],
+                                          : state.categoryProducts[index],
                                     ),
                                   ),
                                 );
                               },
-                              rate: widget.category == 'All'
+                              rate: widget.category[0] == 'All'
                                   ? state.products[index].rate.toString()
-                                  : ctPr[index].rate.toString(),
+                                  : state.categoryProducts[index].rate
+                                      .toString(),
                               // order: widget.category == 'All'
                               //     ? state.products[index].countOfOrders
                               //         .toString()
                               //     : ctPr[index].countOfOrders.toString(),
-                              productName: widget.category == 'All'
+                              productName: widget.category[0] == 'All'
                                   ? state.products[index].productName
-                                  : ctPr[index].productName, order: '',
+                                  : state.categoryProducts[index].productName,
+                              order: '',
                             );
                           },
                         )
                       : ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: widget.category == 'All'
+                          itemCount: widget.category[0] == 'All'
                               ? state.products.length
-                              : ctPr.length,
+                              : state.categoryProducts.length,
                           itemBuilder: (BuildContext context, int index) {
                             return ListViewContainer(
-                              image: widget.category == 'All'
+                              image: widget.category[0] == 'All'
                                   ? state.products[index].imageUrl
-                                  : ctPr[index].imageUrl,
-                              price: widget.category == 'All'
+                                  : state.categoryProducts[index].imageUrl,
+                              price: widget.category[0] == 'All'
                                   ? state.products[index].price.toString()
-                                  : ctPr[index].price.toString(),
+                                  : state.categoryProducts[index].price
+                                      .toString(),
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ProductDetailsScreen(
-                                      productModel: widget.category == 'All'
+                                      productModel: widget.category[0] == 'All'
                                           ? state.products[index]
-                                          : ctPr[index],
+                                          : state.categoryProducts[index],
                                     ),
                                   ),
                                 );
                               },
-                              productName: widget.category == 'All'
+                              productName: widget.category[0] == 'All'
                                   ? state.products[index].productName
-                                  : ctPr[index].productName,
-                              rate: widget.category == 'All'
+                                  : state.categoryProducts[index].productName,
+                              rate: widget.category[0] == 'All'
                                   ? state.products[index].rate.toString()
-                                  : ctPr[index].rate.toString(), order: '',
+                                  : state.categoryProducts[index].rate
+                                      .toString(),
+                              order: '',
                               // order: widget.category == 'All'
                               //     ? state.products[index].countOfOrders
                               //         .toString()
@@ -242,7 +235,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 );
                               },
                               rate: state.products[index].rate.toString(),
-                              productName: state.products[index].productName, order: '',
+                              productName: state.products[index].productName,
+                              order: '',
                               // order: state.products[index].countOfOrders
                               //     .toString(),
                             ),

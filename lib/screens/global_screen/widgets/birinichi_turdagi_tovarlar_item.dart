@@ -248,7 +248,7 @@ class FourMethodTovarITem extends StatelessWidget {
                 color: Colors.red.withOpacity(0.5),
               ),
               child: Text(
-                secondTitle,
+                "$secondTitle \$",
                 style: AppTextStyle.width400.copyWith(
                   fontSize: 14.w,
                   color: Colors.black,

@@ -23,7 +23,7 @@ class AppRoutes {
       case RouteNames.categoryScreen:
         return navigate(
            CategoryScreen(
-            category: settings.arguments as String,
+            category: settings.arguments as List<String>,
           ),
         );
 

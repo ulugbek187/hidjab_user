@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Navigator.pushNamed(
                                         context,
                                         RouteNames.categoryScreen,
-                                        arguments: "All",
+                                        arguments: ["All"],
                                       );
                                     }),
                                 ...List.generate(
@@ -125,11 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     title: state.categories[index].categoryName,
                                     onTap: () {
                                       Navigator.pushNamed(
-                                        context,
-                                        RouteNames.categoryScreen,
-                                        arguments:
+                                          context, RouteNames.categoryScreen,
+                                          arguments: [
                                             state.categories[index].docId,
-                                      );
+                                            state.categories[index].categoryName
+                                          ]);
                                     },
                                   ),
                                 ),
@@ -231,7 +231,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             (index) => FourMethodTovarITem(
                               image: state.products[index].imageUrl,
                               firstTitle: state.products[index].productName,
-                              secondTitle: '-25%',
+                              secondTitle:
+                                  state.products[index].price.toString(),
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -247,174 +248,71 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10.h),
-                    Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: AppColors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 18.h),
-                            child: Text(
-                              "Gadgets",
-                              style: AppTextStyle.width600
-                                  .copyWith(fontSize: 18.w),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 10.h),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Source now",
-                                  style: AppTextStyle.width500.copyWith(
-                                    color: Colors.blue,
-                                    fontSize: 16.w,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RouteNames.categoryScreen,
-                                      arguments: 'All',
-                                    );
-                                  },
-                                  icon: SvgPicture.asset(
-                                    AppIcons.arrowNext,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 1.h,
-                            decoration: const BoxDecoration(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                     SizedBox(
                       height: 10.h,
                     ),
-                    Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: AppColors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 18.h),
-                            child: Text(
-                              "Accessories",
-                              style: AppTextStyle.width600
-                                  .copyWith(fontSize: 18.w),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 10.h),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Source now",
-                                  style: AppTextStyle.width500.copyWith(
-                                    color: Colors.blue,
-                                    fontSize: 16.w,
+                    BlocBuilder<CategoryBloc, CategoryState>(
+                      builder: (context, state) {
+                        return Column(
+                          children: List.generate(
+                            state.categories.length,
+                            (index) => Container(
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                color: AppColors.white,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15.w, vertical: 18.h),
+                                    child: Text(
+                                      state.categories[index].categoryName,
+                                      style: AppTextStyle.width600
+                                          .copyWith(fontSize: 18.w),
+                                    ),
                                   ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RouteNames.categoryScreen,
-                                      arguments: 'All',
-                                    );
-                                  },
-                                  icon: SvgPicture.asset(
-                                    AppIcons.arrowNext,
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 15.w, vertical: 10.h),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "Source now",
+                                          style: AppTextStyle.width500.copyWith(
+                                            color: Colors.blue,
+                                            fontSize: 16.w,
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                              context,
+                                              RouteNames.categoryScreen,
+                                              arguments: 'All',
+                                            );
+                                          },
+                                          icon: SvgPicture.asset(
+                                            AppIcons.arrowNext,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: double.infinity,
-                            height: 1.h,
-                            decoration: const BoxDecoration(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: AppColors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 18.h),
-                            child: Text(
-                              "Clothes",
-                              style: AppTextStyle.width600
-                                  .copyWith(fontSize: 18.w),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 10.h),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Source now",
-                                  style: AppTextStyle.width500.copyWith(
-                                    color: Colors.blue,
-                                    fontSize: 16.w,
+                                  Container(
+                                    width: double.infinity,
+                                    height: 1.h,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.grey,
+                                    ),
                                   ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RouteNames.categoryScreen,
-                                      arguments: 'All',
-                                    );
-                                  },
-                                  icon: SvgPicture.asset(
-                                    AppIcons.arrowNext,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: 1.h,
-                            decoration: const BoxDecoration(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                     SizedBox(
                       height: 10.h,
