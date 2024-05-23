@@ -9,41 +9,20 @@ class GetProductsEvent extends ProductEvent {
   List<Object?> get props => [];
 }
 
-class GetByCategoryNameProductsEvent extends ProductEvent {
-  @override
-  List<Object?> get props => [];
-}
-
 class GetRecommendedProductsEvent extends ProductEvent {
   @override
   List<Object?> get props => [];
 }
 
-class GetProductsByCategoryName extends ProductEvent {
-  final String categoryName;
+class GetProductsByCategoryId extends ProductEvent {
+  final String categoryDocId;
 
-  const GetProductsByCategoryName({
-    required this.categoryName,
-  });
+  const GetProductsByCategoryId({required this.categoryDocId});
 
   @override
-  List<Object?> get props => [
-        categoryName,
-      ];
+  List<Object?> get props => [categoryDocId];
 }
 
-class GetProductsByModelName extends ProductEvent {
-  final String modelName;
-
-  const GetProductsByModelName({
-    required this.modelName,
-  });
-
-  @override
-  List<Object?> get props => [
-        modelName,
-      ];
-}
 
 class SearchProductEvent extends ProductEvent {
   final String input;

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hidjab_user/bloc/category/category_bloc.dart';
+import 'package:hidjab_user/bloc/category/category_state.dart';
 import 'package:hidjab_user/bloc/product/product_event.dart';
 import 'package:hidjab_user/bloc/product/product_state.dart';
+import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/screens/category_screen/category_screen.dart';
 import 'package:hidjab_user/screens/detail_screen/detail_screen.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
@@ -40,9 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<ProductBloc>().add(
-          GetByCategoryNameProductsEvent(),
-        );
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -83,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onChanged: (v) async {
                     _searchProduct();
                     await Future.delayed(const Duration(seconds: 5));
+                    if (!context.mounted) return;
                     context.read<ProductBloc>().add(
                           GetProductsEvent(),
                         );
@@ -92,39 +93,52 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ListView(
                   children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ...List.generate(
-                            AppConstants.globalGategories.length,
-                            (index) => CategoryButton(
-                              title: AppConstants.globalGategories[index],
-                              onTap: index == 0
-                                  ? () {
-                                      // Navigator.pushNamed(context, RouteNames.categoryScreen, arguments: state.products[index]);
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const CategoryScreen(
-                                                  category: "All"),
-                                        ),
-                                      );
-                                    }
-                                  : () {
+                    BlocBuilder<CategoryBloc, CategoryState>(
+                      builder: (context, state) {
+                        if (state.formStatus == FormStatus.loading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (state.formStatus == FormStatus.error) {
+                          return Center(
+                            child: Text(state.error),
+                          );
+                        }
+                        if (state.formStatus == FormStatus.success) {
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                CategoryButton(
+                                    title: "All",
+                                    onTap: () {
                                       Navigator.pushNamed(
                                         context,
                                         RouteNames.categoryScreen,
-                                        arguments: AppConstants
-                                            .globalGategories[index],
+                                        arguments: "All",
+                                      );
+                                    }),
+                                ...List.generate(
+                                  state.categories.length,
+                                  (index) => CategoryButton(
+                                    title: state.categories[index].categoryName,
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouteNames.categoryScreen,
+                                        arguments:
+                                            state.categories[index].docId,
                                       );
                                     },
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
                     ),
                     SizedBox(height: 5.h),
                     Stack(
@@ -251,33 +265,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .copyWith(fontSize: 18.w),
                             ),
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                ...List.generate(state.gadgets.length, (index) {
-                                  return OneMethodTovarITem(
-                                    image: state.gadgets[index].imageUrl,
-                                    firstTitle:
-                                        state.gadgets[index].productName,
-                                    secondTitle:
-                                        "${state.gadgets[index].price.toString()} \$",
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailsScreen(
-                                            productModel: state.gadgets[index],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 15.w, vertical: 10.h),
@@ -335,32 +322,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .copyWith(fontSize: 18.w),
                             ),
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                ...List.generate(state.acses.length, (index) {
-                                  return OneMethodTovarITem(
-                                    image: state.acses[index].imageUrl,
-                                    firstTitle: state.acses[index].productName,
-                                    secondTitle:
-                                        '${state.acses[index].price.toString()} \$',
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailsScreen(
-                                            productModel: state.acses[index],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 15.w, vertical: 10.h),
@@ -416,32 +377,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Clothes",
                               style: AppTextStyle.width600
                                   .copyWith(fontSize: 18.w),
-                            ),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                ...List.generate(state.kiyim.length, (index) {
-                                  return OneMethodTovarITem(
-                                    image: state.kiyim[index].imageUrl,
-                                    firstTitle: state.kiyim[index].productName,
-                                    secondTitle:
-                                        '${state.kiyim[index].price.toString()} \$',
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailsScreen(
-                                            productModel: state.kiyim[index],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                }),
-                              ],
                             ),
                           ),
                           Padding(

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hidjab_user/bloc/category/category_bloc.dart';
+import 'package:hidjab_user/bloc/category/category_event.dart';
 import 'package:hidjab_user/bloc/product/product_bloc.dart';
 import 'package:hidjab_user/data/repo/basket_repo.dart';
+import 'package:hidjab_user/data/repo/category_repo.dart';
 import 'package:hidjab_user/data/repo/product_repo.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/servises/local_notifty_servises.dart';
@@ -19,8 +22,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(
-      BuildContext context,
-      ) {
+    BuildContext context,
+  ) {
     LocalNotificationService.localNotificationService.init(
       navigatorKey,
     );
@@ -29,6 +32,9 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (_) => ProductRepo(),
+        ),
+        RepositoryProvider(
+          create: (_) => CategoryRepo(),
         ),
         RepositoryProvider(
           create: (_) => BasketRepo(),
@@ -45,6 +51,13 @@ class App extends StatelessWidget {
             create: (context) => BasketBloc(
               context.read<BasketRepo>(),
             ),
+          ),
+          BlocProvider(
+            create: (context) => CategoryBloc(
+              context.read<CategoryRepo>(),
+            )..add(
+                ListenAllCategoriesEvent(),
+              ),
           ),
         ],
         child: ScreenUtilInit(

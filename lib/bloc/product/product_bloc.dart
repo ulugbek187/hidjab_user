@@ -16,24 +16,48 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<GetProductsEvent>(
       _listenAllProducts,
     );
-    on<GetProductsByCategoryName>(
-      _listenProductsByCategoryName,
+    on<GetProductsByCategoryId>(
+      _listenProductsCategoryId,
     );
-    on<GetProductsByModelName>(
-      _listenProductsByModelName,
-    );
+
     on<GetRecommendedProductsEvent>(
       _getRecommendedProducts,
     );
-    on<GetByCategoryNameProductsEvent>(
-      _getCategoryProducts,
-    );
+
     on<SearchProductEvent>(
       _search,
     );
   }
 
   ProductRepo productRepo;
+
+  _listenProductsCategoryId(GetProductsByCategoryId event, Emitter emit) async {
+    emit(
+      state.copyWith(
+        formStatus: FormStatus.loading,
+      ),
+    );
+
+    await emit.onEach(
+      productRepo.listenProductsByCategoryId(event.categoryDocId),
+      onData: (List<ProductModel> ctgPr) {
+        emit(
+          state.copyWith(
+            formStatus: FormStatus.success,
+            categoryProducts: ctgPr,
+          ),
+        );
+      },
+      onError: (error, stackTrace) {
+        emit(
+          state.copyWith(
+            formStatus: FormStatus.error,
+            errorText: error.toString(),
+          ),
+        );
+      },
+    );
+  }
 
   _search(SearchProductEvent event, emit) {
     if (event.input.isEmpty) {
@@ -42,58 +66,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(state.copyWith(
         products: state.products.where(
           (element) {
-            return element.productName.toLowerCase()
+            return element.productName
+                .toLowerCase()
                 .contains(event.input.toLowerCase());
-
           },
         ).toList(),
       ));
       return false;
-    }
-  }
-
-  _getCategoryProducts(GetByCategoryNameProductsEvent event, emit) async {
-    emit(state.copyWith(
-      formStatus: FormStatus.loading,
-    ));
-
-    NetworkResponse gadgetsRes = await productRepo.getGadgetsCategory();
-
-    if (gadgetsRes.errorText.isEmpty) {
-      emit(state.copyWith(
-        gadgets: gadgetsRes.data,
-      ));
-    } else {
-      emit(state.copyWith(
-        formStatus: FormStatus.error,
-        errorText: gadgetsRes.errorText.toString(),
-      ));
-    }
-
-    NetworkResponse kiyimRes = await productRepo.getKiyimCategory();
-
-    if (kiyimRes.errorText.isEmpty) {
-      emit(state.copyWith(
-        kiyim: kiyimRes.data,
-      ));
-    } else {
-      emit(state.copyWith(
-        formStatus: FormStatus.error,
-        errorText: kiyimRes.errorText,
-      ));
-    }
-
-    NetworkResponse acsesRes = await productRepo.getAcsesCategory();
-
-    if (acsesRes.errorText.isEmpty) {
-      emit(state.copyWith(
-        acses: acsesRes.data,
-      ));
-    } else {
-      emit(state.copyWith(
-        formStatus: FormStatus.error,
-        errorText: acsesRes.errorText,
-      ));
     }
   }
 
@@ -109,7 +88,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         if (int.parse(element.rate) > 4.5) {
           recommendedProducts.add(element);
         }
-
       }
 
       emit(
@@ -131,7 +109,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     );
 
     await emit.onEach(
-      productRepo.getAllProducts(),
+      productRepo.listenAllProducts(),
       onData: (
         List<ProductModel> allProducts,
       ) {
@@ -140,52 +118,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             products: allProducts,
             formStatus: FormStatus.success,
           ),
-        );
-      },
-    );
-  }
-
-  _listenProductsByCategoryName(
-    GetProductsByCategoryName event,
-    Emitter emit,
-  ) async {
-    emit(
-      state.copyWith(
-        formStatus: FormStatus.loading,
-      ),
-    );
-    await emit.onEach(
-      productRepo.getProductsByCategoryName(
-        event.categoryName,
-      ),
-      onData: (
-        List<ProductModel> products,
-      ) {
-        emit(
-          state.copyWith(products: products, formStatus: FormStatus.success),
-        );
-      },
-    );
-  }
-
-  _listenProductsByModelName(
-    GetProductsByModelName event,
-    Emitter emit,
-  ) async {
-    emit(
-      state.copyWith(
-        formStatus: FormStatus.loading,
-      ),
-    );
-    await emit.onEach(
-      productRepo.getProductsByModelName(
-        event.modelName,
-      ),
-      onData: (
-        List<ProductModel> products,
-      ) {
-        emit(
-          state.copyWith(products: products, formStatus: FormStatus.success),
         );
       },
     );
