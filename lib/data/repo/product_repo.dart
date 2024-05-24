@@ -41,6 +41,26 @@ class ProductRepo {
     }
   }
 
+  // Future<NetworkResponse> getCtgPr(){
+  //
+  //   try{
+  //
+  //     FirebaseFirestore.instance.collection(AppConstants.products).get();
+  //
+  //
+  //
+  //
+  //   }catch(e){
+  //
+  //   }
+  //
+  //
+  //
+  //
+  //
+  //
+  // }
+
   Stream<List<ProductModel>> listenProductsByCategoryId(String categoryiD) =>
       FirebaseFirestore.instance
           .collection(AppConstants.products)

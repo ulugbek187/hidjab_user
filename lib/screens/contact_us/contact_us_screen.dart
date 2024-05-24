@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
+import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -50,6 +51,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ),
         backgroundColor: Colors.black,
         body: ListView(
+          physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
           children: [
             SizedBox(
@@ -62,6 +64,16 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10.w),
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Center(
+              child: Image.asset(
+                AppImages.brandMafia,
+                width: double.infinity,
+                height: 140.h,
               ),
             ),
             SizedBox(

@@ -8,9 +8,18 @@ import 'package:hidjab_user/data/repo/category_repo.dart';
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc(this.categoryRepo) : super(CategoryState.initial()) {
     on<ListenAllCategoriesEvent>(_listenAllCategories);
+    on<GetCategories>(_getCategories);
   }
 
   CategoryRepo categoryRepo;
+
+  _getCategories(GetCategories event, emit){
+
+    emit(state.copyWith(
+      formStatus: FormStatus.loading,
+    ),);
+
+  }
 
   _listenAllCategories(ListenAllCategoriesEvent event, Emitter emit) async {
     emit(

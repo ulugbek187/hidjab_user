@@ -11,6 +11,7 @@ class AppImages {
   static const String obmankaBack = "assets/image/back_obmanka.png";
   static const String hour = "assets/image/hour.png";
   static const String recomended = "assets/image/recomended.png";
+  static const String brandMafia = "assets/image/brand_mafia.png";
 
 
 
