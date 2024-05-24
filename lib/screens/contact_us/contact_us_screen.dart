@@ -12,6 +12,8 @@ final Uri gmailU = Uri.parse("https://mail.google.com/mail/u/0/#inbox");
 final Uri gmailM = Uri.parse("ulugbekmirvokhidov@gmail.com");
 
 final Uri telegramURLU = Uri.parse("https://t.me/ulugbek171");
+final Uri telegramURLM = Uri.parse("https://t.me/ulugbek171");
+
 final Uri instagramURLU = Uri.parse(
     "https://www.instagram.com/not_legal_187?igsh=MWRwZTFsbWZiN2d2NQ==");
 
@@ -75,7 +77,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   ),
                 ),
                 Text(
-                  "Company",
+                  "Admins",
                   style: AppTextStyle.width700.copyWith(
                     color: Colors.white,
                   ),
@@ -86,7 +88,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -125,22 +126,28 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     SizedBox(
                       height: 24.h,
                     ),
-                    Text("Ulug'bek", style: AppTextStyle.width600.copyWith(color: Colors.white),),
+                    Text(
+                      "Ulug'bek",
+                      style:
+                          AppTextStyle.width600.copyWith(color: Colors.white),
+                    ),
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text("Mir Ag'zam", style: AppTextStyle.width600.copyWith(color: Colors.white),),
+                    Text(
+                      "Mir Ag'zam",
+                      style:
+                          AppTextStyle.width600.copyWith(color: Colors.white),
+                    ),
                     // Text("Brand Mafia", style: AppTextStyle.width600.copyWith(color: Colors.white),),
                   ],
                 ),
               ],
             ),
-
             SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -154,8 +161,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       },
                       child: Text(
                         "mirvokhidovulugbek@gmail.com",
-                        style:
-                        AppTextStyle.width600.copyWith(color: Colors.white, fontSize: 12.w),
+                        style: AppTextStyle.width600
+                            .copyWith(color: Colors.white, fontSize: 12.w),
                       ),
                     ),
                     SizedBox(
@@ -167,8 +174,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       },
                       child: Text(
                         "mirvokhidovulugbek@gmail.com",
-                        style:
-                        AppTextStyle.width600.copyWith(color: Colors.white, fontSize: 12.w),
+                        style: AppTextStyle.width600
+                            .copyWith(color: Colors.white, fontSize: 12.w),
                       ),
                     ),
                   ],
@@ -179,11 +186,19 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     SizedBox(
                       height: 24.h,
                     ),
-                    Text("Ulug'bek", style: AppTextStyle.width600.copyWith(color: Colors.white),),
+                    Text(
+                      "Ulug'bek",
+                      style:
+                          AppTextStyle.width600.copyWith(color: Colors.white),
+                    ),
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text("Mir Ag'zam", style: AppTextStyle.width600.copyWith(color: Colors.white),),
+                    Text(
+                      "Mir Ag'zam",
+                      style:
+                          AppTextStyle.width600.copyWith(color: Colors.white),
+                    ),
                     // Text("Brand Mafia", style: AppTextStyle.width600.copyWith(color: Colors.white),),
                   ],
                 ),
@@ -206,14 +221,120 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       },
                       child: Text(
                         "132 Dartmouth Street Boston,\n Massachusetts 02156 United States",
-                        style:
-                        AppTextStyle.width600.copyWith(color: Colors.white, fontSize: 12.w),
+                        style: AppTextStyle.width600
+                            .copyWith(color: Colors.white, fontSize: 12.w),
                       ),
                     ),
-
                   ],
                 ),
+              ],
+            ),
+            SizedBox(height: 16.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset(
+                      AppIcons.telegram,
+                      color: Colors.white,
+                      width: 26.w,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await launchUrl(telegramURLU);
+                      },
+                      child: Text(
+                        "https://t.me/ulugbek171",
+                        style: AppTextStyle.width600
+                            .copyWith(color: Colors.white, fontSize: 12.w),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await launchUrl(telegramURLM);
+                      },
+                      child: Text(
+                        "https://t.me/miragzam",
+                        style: AppTextStyle.width600
+                            .copyWith(color: Colors.white, fontSize: 12.w),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Text(
+                      "Ulug'bek",
+                      style:
+                          AppTextStyle.width600.copyWith(color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      "Mir Ag'zam",
+                      style:
+                          AppTextStyle.width600.copyWith(color: Colors.white),
+                    ),
+                    // Text("Brand Mafia", style: AppTextStyle.width600.copyWith(color: Colors.white),),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 16.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset(
+                      AppIcons.instagram,
+                      color: Colors.white,
+                      width: 26.w,
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    GestureDetector(
+                      onTap: () async {
+                        await launchUrl(instagramURLU);
+                      },
+                      child: Text(
+                        "https://www.instagram.com/brand",
+                        style: AppTextStyle.width600
+                            .copyWith(color: Colors.white, fontSize: 12.w),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Text(
+                      "Brand Mafia",
+                      style:
+                          AppTextStyle.width600.copyWith(color: Colors.white),
+                    ),
 
+                    // Text("Brand Mafia", style: AppTextStyle.width600.copyWith(color: Colors.white),),
+                  ],
+                ),
               ],
             ),
           ],

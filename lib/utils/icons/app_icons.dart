@@ -33,4 +33,6 @@ class AppIcons {
   static const String tel = "assets/icon/tel.svg";
   static const String pochta = "assets/icon/pochta.svg";
   static const String locatsiya = "assets/icon/locatsiya.svg";
+  static const String telegram = "assets/icon/telegram.svg";
+  static const String instagram = "assets/icon/instagram.svg";
 }
