@@ -163,7 +163,9 @@ class MyDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RouteNames.contactUsScreen);
+            },
           ),
           ListTile(
             title: Row(

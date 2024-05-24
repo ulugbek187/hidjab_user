@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hidjab_user/screens/category_screen/category_screen.dart';
+import 'package:hidjab_user/screens/contact_us/contact_us_screen.dart';
 import 'package:hidjab_user/screens/splash_screen/splash_screen.dart';
 
 import '../data/models/product_model.dart';
@@ -20,9 +21,13 @@ class AppRoutes {
         return navigate(
           const HomeScreen(),
         );
+      case RouteNames.contactUsScreen:
+        return navigate(
+          const ContactUsScreen(),
+        );
       case RouteNames.categoryScreen:
         return navigate(
-           CategoryScreen(
+          CategoryScreen(
             category: settings.arguments as List<String>,
           ),
         );
@@ -33,7 +38,8 @@ class AppRoutes {
         );
       case RouteNames.productDetailScreen:
         return navigate(
-           ProductDetailsScreen(productModel: settings.arguments as ProductModel),
+          ProductDetailsScreen(
+              productModel: settings.arguments as ProductModel),
         );
 
       default:
@@ -66,5 +72,6 @@ class RouteNames {
   static const String homeScreen = "/home_screen";
   static const String categoryScreen = "/category_screen";
   static const String basketScreen = "/basket_screen";
+  static const String contactUsScreen = "/contact_us_screen";
   static const String productDetailScreen = "/product_detail_screen";
 }

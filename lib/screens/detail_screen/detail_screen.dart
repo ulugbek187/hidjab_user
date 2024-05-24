@@ -165,7 +165,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               .copyWith(color: AppColors.black, fontSize: 20)),
                       Row(
                         children: [
-                          Text("${widget.productModel.price.toString()} \$",
+                          Text("${widget.productModel.price.toString()} Сум",
                               style: AppTextStyle.width500.copyWith(
                                   color: AppColors.cFF9017, fontSize: 20)),
                           SizedBox(

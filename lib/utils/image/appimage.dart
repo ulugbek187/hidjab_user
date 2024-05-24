@@ -10,6 +10,7 @@ class AppImages {
   static const String obmanka2 = "assets/image/obmanka_2.png";
   static const String obmankaBack = "assets/image/back_obmanka.png";
   static const String hour = "assets/image/hour.png";
+  static const String recomended = "assets/image/recomended.png";
 
 
 

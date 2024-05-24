@@ -53,7 +53,7 @@ class OneMethodTovarITem extends StatelessWidget {
             ),
             SizedBox(height: 5.h),
             Text(
-              secondTitle,
+              "$secondTitle Сум",
               style: AppTextStyle.width400.copyWith(
                 fontSize: 14.w,
                 color: Colors.grey,
@@ -96,7 +96,7 @@ class TwoMethodTovarITem extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.w),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 8.h),
             Padding(

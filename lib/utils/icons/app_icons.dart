@@ -30,4 +30,7 @@ class AppIcons {
   static const String carts = "assets/icon/cart.svg";
   static const String star = "assets/icon/star.svg";
   static const String dot = "assets/icon/dot.svg";
+  static const String tel = "assets/icon/tel.svg";
+  static const String pochta = "assets/icon/pochta.svg";
+  static const String locatsiya = "assets/icon/locatsiya.svg";
 }

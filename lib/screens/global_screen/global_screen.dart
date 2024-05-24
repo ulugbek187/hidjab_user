@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 5.h),
+                padding: EdgeInsets.only(left: 14.w, bottom: 5.h, top: 5.h),
                 child: MyTextField(
                   controller: textEditingController,
                   type: TextInputType.text,
@@ -138,85 +138,30 @@ class _HomeScreenState extends State<HomeScreen> {
                         return const SizedBox.shrink();
                       },
                     ),
-                    SizedBox(height: 5.h),
-                    Stack(
-                      children: [
-                        Image.asset(AppImages.reklama),
-                        Positioned(
-                          top: 23.h,
-                          left: 20.w,
-                          child: Text(
-                            "Latest trending",
-                            style: AppTextStyle.width500.copyWith(
-                              fontSize: 18.w,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 60.h,
-                          left: 20.w,
-                          child: Text(
-                            "Electronic items",
-                            style: AppTextStyle.width500.copyWith(
-                              fontSize: 18.w,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 120.h,
-                          left: 20.w,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, RouteNames.categoryScreen);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.w, vertical: 5.h),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.w),
-                                color: Colors.white,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Learn more",
-                                  style: AppTextStyle.width600.copyWith(
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     SizedBox(height: 10.h),
                     Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 10.h),
+                      padding: EdgeInsets.only(left: 20.w, bottom: 10.h, top: 10.h),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Deals and offers",
+                                "All Products",
                                 style: AppTextStyle.width600.copyWith(
                                   fontSize: 18.w,
                                 ),
                               ),
                               Text(
-                                "Deals and offers",
+                                "Your favorite products",
                                 style: AppTextStyle.width400
                                     .copyWith(fontSize: 14.w),
                               ),
                             ],
                           ),
-                          SizedBox(
-                              width: 140.w,
-                              height: 44.h,
-                              child: Image.asset(AppImages.hour)),
+                          const Spacer(),
+                          Image.asset(AppImages.recomended, width: 200.w,height: 70.h,),
                         ],
                       ),
                     ),
@@ -226,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           ...List.generate(
                             state.products.length,
-                                (index) => FourMethodTovarITem(
+                                (index) => OneMethodTovarITem(
                               image: state.products[index].imageUrl,
                               firstTitle: state.products[index].productName,
                               secondTitle:
@@ -323,10 +268,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           top: 24.h,
                           left: 20.w,
                           child: Text(
-                            "An easy way to send \nrequests to all suppliers",
+                            "Our products are stored in a warehouse,\n in a safe place, in Limonary\n Bunyodkor Street",
                             style: AppTextStyle.width600.copyWith(
                               color: Colors.white,
-                              fontSize: 18.w,
+                              fontSize: 16.w,
                             ),
                           ),
                         ),
@@ -342,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             onPressed: () {},
                             child: Text(
-                              "Send inquiry",
+                              "Learn more",
                               style: AppTextStyle.width500.copyWith(
                                   color: Colors.white, fontSize: 13.w),
                             ),
@@ -374,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               image: state.products[index].imageUrl,
                               firstTitle: state.products[index].productName,
                               secondTitle:
-                              "${state.products[index].price} Ram/Rom",
+                              "${state.products[index].price} Сум",
                               onTap: () {
                                 Navigator.push(
                                   context,
