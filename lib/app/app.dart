@@ -60,12 +60,8 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => CategoryBloc(
               context.read<CategoryRepo>(),
-            )
-              ..add(
+            )..add(
                 ListenAllCategoriesEvent(),
-              )
-              ..add(
-                GetCategories(),
               ),
           ),
         ],

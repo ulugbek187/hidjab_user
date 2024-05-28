@@ -30,31 +30,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void _init() {
-    Future.microtask(() {
-      List<String> c = [];
-      for (int i = 0;
-          i < context.read<CategoryBloc>().state.categories.length;
-          i++) {
-        c.add(
-          context.read<CategoryBloc>().state.categories[i].docId,
-        );
-      }
-
-      context.read<NabiBloc>().add(
-            GetCategoryProductsEvent(
-              categories: c,
-            ),
-          );
-    });
-  }
-
   @override
   void initState() {
-    _init();
     Future.microtask(
       () => context.read<ProductBloc>().add(
             GetProductsEvent(),
+          ),
+    );
+    Future.microtask(
+      () => context.read<NabiBloc>().add(
+            GetCategoryEvent(
+              categories: context.read<CategoryBloc>().state.categories,
+            ),
+          ),
+    );
+    Future.microtask(
+      () => context.read<NabiBloc>().add(
+            const GetCategoryProductsEvent(),
           ),
     );
     super.initState();
@@ -225,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 10.h,
                     ),
-                    BlocBuilder<CategoryBloc, CategoryState>(
+                    BlocBuilder<NabiBloc, NabiState>(
                       builder: (context, state) {
                         return Column(
                           children: List.generate(
@@ -251,18 +243,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                       builder: (context, state) {
                                     if (state.formStatus ==
                                         FormStatus.success) {
-                                      return ListView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: state.products.length,
-                                          itemBuilder: (context, index) {
-                                            return SizedBox(
-                                              height: 50.h,
-                                              child: Text(
-                                                state.products[i][index]
-                                                    .productName,
-                                              ),
-                                            );
-                                          });
+                                      return SizedBox(
+                                        height: 300.h,
+                                        child: ListView.builder(
+                                            scrollDirection: Axis.horizontal,
+                                            itemCount: state.products[i].length,
+                                            itemBuilder: (context, index) {
+                                              return SizedBox(
+                                                height: 300.h,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Text(
+                                                    state.products[i][index]
+                                                        .productName,
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                      );
                                     }
                                     if (state.formStatus == FormStatus.error) {
                                       return Text(state.errorText);

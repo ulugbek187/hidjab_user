@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
+import 'package:hidjab_user/data/models/category_model.dart';
 import '../../data/models/product_model.dart';
 
 class NabiState extends Equatable {
-  final List<String> categories;
+  final List<CategoryModel> categories;
   final List<List<ProductModel>> products;
   final String errorText;
   final FormStatus formStatus;
@@ -16,7 +17,7 @@ class NabiState extends Equatable {
   });
 
   NabiState copyWith({
-    List<String>? categories,
+    List<CategoryModel>? categories,
     List<List<ProductModel>>? products,
     String? errorText,
     FormStatus? formStatus,

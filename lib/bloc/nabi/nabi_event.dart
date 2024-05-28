@@ -1,13 +1,14 @@
 import 'package:equatable/equatable.dart';
+import 'package:hidjab_user/data/models/category_model.dart';
 
 sealed class NabiEvent extends Equatable {
   const NabiEvent();
 }
 
-class GetCategoryProductsEvent extends NabiEvent {
-  final List<String> categories;
+class GetCategoryEvent extends NabiEvent {
+  final List<CategoryModel> categories;
 
-  const GetCategoryProductsEvent({
+  const GetCategoryEvent({
     required this.categories,
   });
 
@@ -15,4 +16,11 @@ class GetCategoryProductsEvent extends NabiEvent {
   List<Object?> get props => [
         categories,
       ];
+}
+
+class GetCategoryProductsEvent extends NabiEvent {
+  const GetCategoryProductsEvent();
+
+  @override
+  List<Object?> get props => [];
 }

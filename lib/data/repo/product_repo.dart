@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hidjab_user/data/models/product_model.dart';
 import 'package:hidjab_user/utils/constans/app_constans.dart';
 import '../response/network_response.dart';
@@ -69,6 +70,10 @@ class ProductRepo {
       List<ProductModel> pr = querySnapshot.docs
           .map((e) => ProductModel.fromJson(e.data() as Map<String, dynamic>))
           .toList();
+
+      debugPrint(
+        'LEJSDDCJKSJDKCJKSD -------------${pr.length}',
+      );
 
       return NetworkResponse(
         data: pr,
