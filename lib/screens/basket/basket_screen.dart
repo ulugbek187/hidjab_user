@@ -63,8 +63,7 @@ class _BasketScreenState extends State<BasketScreen> {
             for (var element in state.baskets) {
               countOfProductsList.add(element.countOfProducts);
             }
-          } else {
-          }
+          } else {}
           if (state.baskets.isEmpty) {
             return Center(
               child: Lottie.asset(AppImages.basket),
@@ -150,17 +149,20 @@ class _BasketScreenState extends State<BasketScreen> {
                                   content: SizedBox(
                                     height: 50.h,
                                     child: Column(
-
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-
-                                        Text("Ushbu Mahsulotni aniq ochirib tawlamoqchimisiz?", style: AppTextStyle.width600,),
+                                        Text(
+                                          "Ushbu Mahsulotni aniq ochirib tawlamoqchimisiz?",
+                                          style: AppTextStyle.width600,
+                                        ),
                                       ],
                                     ),
                                   ),
                                   actions: <Widget>[
                                     TextButton(
-                                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancel'),
                                       child: Text(
                                         'Cancel',
                                         style: TextStyle(
@@ -171,10 +173,10 @@ class _BasketScreenState extends State<BasketScreen> {
                                     TextButton(
                                       onPressed: () {
                                         context.read<BasketBloc>().add(
-                                          DeleteBasketEvent(
-                                            uuid: state.baskets[index].uuid,
-                                          ),
-                                        );
+                                              DeleteBasketEvent(
+                                                uuid: state.baskets[index].uuid,
+                                              ),
+                                            );
                                         Navigator.pop(context, 'OK');
                                       },
                                       child: Text(

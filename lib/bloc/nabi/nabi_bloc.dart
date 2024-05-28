@@ -34,9 +34,8 @@ class NabiBloc extends Bloc<NabiEvent, NabiState> {
 
     NetworkResponse networkResponse = NetworkResponse();
 
-
-    List<List<ProductModel>> pr = await func(state, networkResponse, productRepo);
-
+    List<List<ProductModel>> pr =
+        await func(state, networkResponse, productRepo);
 
     if (pr.isNotEmpty) {
       emit(
@@ -56,20 +55,16 @@ class NabiBloc extends Bloc<NabiEvent, NabiState> {
   }
 }
 
-
-Future<List<List<ProductModel>>> func(NabiState state, NetworkResponse networkResponse, ProductRepo
-productRepo) async {
-
+Future<List<List<ProductModel>>> func(NabiState state,
+    NetworkResponse networkResponse, ProductRepo productRepo) async {
   List<List<ProductModel>> pr = [];
   for (int i = 0; i < state.categories.length; i++) {
     networkResponse = await productRepo.getCategoryProducts(
       state.categories[i].docId,
     );
 
-
-    debugPrint("ERROR----------------${networkResponse.errorText} LENGTH:-----------${networkResponse.data.runtimeType}");
-
-
+    debugPrint(
+        "ERROR----------------${networkResponse.errorText} LENGTH:-----------${networkResponse.data.runtimeType}");
 
     if (networkResponse.errorText.isEmpty) {
       pr.add(

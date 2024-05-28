@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 
-
 class RejimItems extends StatelessWidget {
   const RejimItems({super.key});
 

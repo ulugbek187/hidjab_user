@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hidjab_user/bloc/auth/auth_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_state.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.c_F7FAFC,
+        backgroundColor: AppColors.cF7FAFC,
         title: Row(
           children: [
             Image.asset(AppImages.brandIcon, width: 34.w, height: 34.h),
@@ -75,13 +76,25 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: SvgPicture.asset(AppIcons.carts),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.read<AuthBloc>().add(
+                    LogOutUserEvent(),
+                  );
+              context.read<AuthBloc>().add(
+                    LogOutUserEvent(),
+                  );
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                RouteNames.login,
+                (route) => false,
+              );
+            },
             icon: SvgPicture.asset(AppIcons.profile),
           ),
         ],
       ),
       drawer: const MyDrawer(),
-      backgroundColor: AppColors.c_F7FAFC,
+      backgroundColor: AppColors.cF7FAFC,
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           return Column(
@@ -252,7 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               return SizedBox(
                                                 height: 300.h,
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Text(
                                                     state.products[i][index]
                                                         .productName,

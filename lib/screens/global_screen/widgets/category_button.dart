@@ -17,7 +17,7 @@ class CategoryButton extends StatelessWidget {
       child: TextButton(
         onPressed: onTap,
         style: TextButton.styleFrom(
-          backgroundColor: AppColors.c_EFF2F4,
+          backgroundColor: AppColors.cEFF2F4,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.w),
           ),

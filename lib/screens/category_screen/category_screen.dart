@@ -45,7 +45,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
     height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.category[0] == "All" ? "ALL CATEGORIES" : widget.category[1].toUpperCase()),
+        title: Text(widget.category[0] == "All"
+            ? "ALL CATEGORIES"
+            : widget.category[1].toUpperCase()),
         actions: [
           SvgPicture.asset(AppIcons.carts),
           SizedBox(

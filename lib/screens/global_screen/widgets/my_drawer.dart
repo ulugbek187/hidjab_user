@@ -102,7 +102,8 @@ class MyDrawer extends StatelessWidget {
               children: [
                 SvgPicture.asset(
                   AppIcons.carts,
-                  color: Colors.grey,
+                  colorFilter: const ColorFilter.mode( Colors.grey, BlendMode.srcIn),
+
                 ),
                 SizedBox(
                   width: 16.w,

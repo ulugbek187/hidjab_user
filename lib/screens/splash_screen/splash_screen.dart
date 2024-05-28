@@ -4,7 +4,6 @@ import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_event.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_event.dart';
-import 'package:hidjab_user/data/repo/storage_repository.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import 'package:lottie/lottie.dart';
@@ -37,12 +36,17 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 3));
     if (!mounted) return;
     if (!auth) {
-      bool isNewUser = StorageRepository.getBool(key: "is_new_user");
-      if (isNewUser) {
-        Navigator.pushReplacementNamed(context, RouteNames.login);
-      } else {
-        // Navigator.pushReplacementNamed(context, RouteNames.onBoarding);
-      }
+      Navigator.pushNamed(
+        context,
+        RouteNames.login,
+      );
+      // bool isNewUser = StorageRepository.getBool(key: "is_new_user");
+      // if (isNewUser) {
+      //   Navigator.pushReplacementNamed(context, RouteNames.login);
+      // }
+      // else {
+      //   // Navigator.pushReplacementNamed(context, RouteNames.onBoarding);
+      // }
     } else {
       Navigator.pushReplacementNamed(context, RouteNames.homeScreen);
     }
@@ -60,26 +64,26 @@ class _SplashScreenState extends State<SplashScreen> {
     width = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BlocListener<AuthBloc, AuthState>(
-              listener: (context, state) {
-                if (state.status == FormsStatus.authenticated) {
-                  _init(true);
-                } else {
-                  _init(false);
-                }
-              },
-              child: const SizedBox.square(),
-            ),
-            Lottie.asset(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state.status == FormsStatus.authenticated) {
+                _init(true);
+              } else {
+                _init(false);
+              }
+            },
+            child: const SizedBox.square(),
+          ),
+          Center(
+            child: Lottie.asset(
               AppImages.eComerse,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

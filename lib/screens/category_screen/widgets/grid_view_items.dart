@@ -38,11 +38,13 @@ class GridViewContainer extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             CachedNetworkImage(
               imageUrl: image,
               placeholder: (context, url) => const CircularProgressIndicator(),
-              errorWidget: (context, url, error) =>  const Icon(Icons.error, color: Colors.red,),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+                color: Colors.red,
+              ),
               width: 100.w,
               height: 100.h,
             ),
@@ -68,24 +70,24 @@ class GridViewContainer extends StatelessWidget {
                 SizedBox(
                   width: 10.w,
                 ),
-
               ],
             ),
-           Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               SvgPicture.asset(AppIcons.dot),
-               SizedBox(width: 5.w,),
-               Text(
-                 "$order Orders",
-                 style: AppTextStyle.width400.copyWith(
-                   color: Colors.grey,
-                 ),
-               overflow: TextOverflow.ellipsis,
-               ),
-
-             ],
-           )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(AppIcons.dot),
+                SizedBox(
+                  width: 5.w,
+                ),
+                Text(
+                  "$order Orders",
+                  style: AppTextStyle.width400.copyWith(
+                    color: Colors.grey,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            )
           ],
         ),
       ),

@@ -63,8 +63,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '786119628442',
     projectId: 'app-hidjab',
     storageBucket: 'app-hidjab.appspot.com',
-    androidClientId: '786119628442-31e4t3f0ki0p9c4a923g1rqoht1dv76p.apps.googleusercontent.com',
-    iosClientId: '786119628442-0qp46l1u9s0m50i28q9s9sv5kkubm3h1.apps.googleusercontent.com',
+    androidClientId:
+        '786119628442-31e4t3f0ki0p9c4a923g1rqoht1dv76p.apps.googleusercontent.com',
+    iosClientId:
+        '786119628442-0qp46l1u9s0m50i28q9s9sv5kkubm3h1.apps.googleusercontent.com',
     iosBundleId: 'com.example.hidjabUser',
   );
 }

@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 
-
 class SortItems extends StatefulWidget {
   final VoidCallback onGridViewPressed;
   final VoidCallback onListViewPressed;
@@ -108,7 +107,7 @@ class _SortItemsState extends State<SortItems> {
                       ),
                       color: Colors.white,
                     ),
-                    child:Padding(
+                    child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: SvgPicture.asset(AppIcons.twoScreenWin),
                     ),
@@ -127,7 +126,7 @@ class _SortItemsState extends State<SortItems> {
                       ),
                       color: Colors.grey.shade300,
                     ),
-                    child:Padding(
+                    child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: SvgPicture.asset(AppIcons.menu),
                     ),

@@ -8,14 +8,15 @@ class MyTextField extends StatelessWidget {
     required this.type,
     required this.iconPath,
     required this.hinText,
-    required this.onChanged, required this.controller,
+    required this.onChanged,
+    required this.controller,
   });
 
   final TextInputType type;
   final String iconPath;
   final String hinText;
   final ValueChanged onChanged;
-final TextEditingController controller;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -81,7 +82,3 @@ final TextEditingController controller;
     );
   }
 }
-
-
-
-

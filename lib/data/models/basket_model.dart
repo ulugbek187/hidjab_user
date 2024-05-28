@@ -5,6 +5,7 @@ class BasketModel {
   final String images;
   final String categoryName;
   final String uuid;
+  final String userId;
   final String modelName;
   final double price;
   final double rate;
@@ -23,6 +24,7 @@ class BasketModel {
     required this.allPrice,
     required this.countOfProducts,
     required this.uuid,
+    required this.userId,
   });
 
   BasketModel copyWith({
@@ -32,6 +34,7 @@ class BasketModel {
     String? images,
     String? categoryName,
     String? uuid,
+    String? userId,
     String? modelName,
     double? price,
     double? rate,
@@ -50,6 +53,7 @@ class BasketModel {
         allPrice: allPrice ?? this.allPrice,
         countOfProducts: countOfProducts ?? this.countOfProducts,
         uuid: uuid ?? this.uuid,
+        userId: userId ?? this.userId,
       );
 
   factory BasketModel.fromJson(Map<String, dynamic> json) => BasketModel(
@@ -64,6 +68,7 @@ class BasketModel {
         allPrice: (json['all_price'] as num? ?? 0).toDouble(),
         countOfProducts: json['count_of_product'] as int? ?? 0,
         uuid: json['uuid'] as String? ?? '',
+        userId: json['userId'] as String? ?? '',
       );
 
   Map<String, dynamic> toJson() {
@@ -72,6 +77,7 @@ class BasketModel {
       'model_name': modelName,
       'description': description,
       'uuid': uuid,
+      'userId': userId,
       'image_url': imageUrl,
       'images': images,
       'category_name': categoryName,
@@ -89,4 +95,3 @@ class BasketModel {
     };
   }
 }
-

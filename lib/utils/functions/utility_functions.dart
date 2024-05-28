@@ -10,30 +10,51 @@ SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
   statusBarIconBrightness: Brightness.dark,
 );
 
-currentCategory(String categoryName){
-  if(categoryName.toLowerCase() == 'gadgets'){
-    return ['Tablets', 'Phones', 'iPod', 'iPads', 'Laptops',];
+currentCategory(String categoryName) {
+  if (categoryName.toLowerCase() == 'gadgets') {
+    return [
+      'Tablets',
+      'Phones',
+      'iPod',
+      'iPads',
+      'Laptops',
+    ];
   }
-  if(categoryName.toLowerCase() == 'kiyim'){
-    return ['Shoes', 'T-Shirt', 'suit', 'Jeans',];
+  if (categoryName.toLowerCase() == 'kiyim') {
+    return [
+      'Shoes',
+      'T-Shirt',
+      'suit',
+      'Jeans',
+    ];
   }
-  if(categoryName.toLowerCase() == 'acses'){
-    return ['AirPods', 'HeadPhones', 'PowerBank', 'Radio',];
+  if (categoryName.toLowerCase() == 'acses') {
+    return [
+      'AirPods',
+      'HeadPhones',
+      'PowerBank',
+      'Radio',
+    ];
   }
-  if(categoryName.toLowerCase() == 'electronics'){
-    return ['refrigerator', 'Vacuum cleaner', 'Oven', 'Micro wave',];
+  if (categoryName.toLowerCase() == 'electronics') {
+    return [
+      'refrigerator',
+      'Vacuum cleaner',
+      'Oven',
+      'Micro wave',
+    ];
   }
   return [];
 }
 
-String catName(String ctnm){
-  if(ctnm == 'Gadgets'){
+String catName(String ctnm) {
+  if (ctnm == 'Gadgets') {
     return 'gadgets';
   }
-  if(ctnm == 'Clocthes'){
+  if (ctnm == 'Clocthes') {
     return 'kiyim';
   }
-  if(ctnm == 'Accessory'){
+  if (ctnm == 'Accessory') {
     return 'acses';
   }
   return '';
@@ -69,8 +90,6 @@ double calculateAllPrice(List<BasketModel> baskets) {
   return summa;
 }
 
-
-
 List<String> splitImages(String input) {
   List<String> images = input.split(' ');
   for (var element in images) {
@@ -79,10 +98,8 @@ List<String> splitImages(String input) {
   return images;
 }
 
-
 String formatDateWithSlash(String input) {
-  if (input.length != 4) {
-  }
+  if (input.length != 4) {}
 
   DateTime now = DateTime.now();
   int currentYear = now.year;
@@ -91,7 +108,6 @@ String formatDateWithSlash(String input) {
   int year = int.parse(input.substring(0, 2));
   int month = int.parse(input.substring(2, 4));
 
-  if (year > currentYear || (year == currentYear && month > currentMonth)) {
-  }
+  if (year > currentYear || (year == currentYear && month > currentMonth)) {}
   return '$year/$month';
 }

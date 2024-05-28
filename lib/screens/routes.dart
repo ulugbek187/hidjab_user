@@ -26,7 +26,8 @@ class AppRoutes {
       case RouteNames.contactUsScreen:
         return navigate(
           const ContactUsScreen(),
-        ); case RouteNames.login:
+        );
+      case RouteNames.login:
         return navigate(
           const LoginScreen(),
         );
@@ -40,7 +41,8 @@ class AppRoutes {
       case RouteNames.basketScreen:
         return navigate(
           const BasketScreen(),
-        );case RouteNames.signup:
+        );
+      case RouteNames.signup:
         return navigate(
           const RegisterScreen(),
         );

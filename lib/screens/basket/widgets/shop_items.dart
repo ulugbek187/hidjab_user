@@ -104,7 +104,10 @@ class ShopContainer extends StatelessWidget {
               const Spacer(),
               IconButton(
                 onPressed: onTap,
-                icon: const Icon(Icons.delete_forever_rounded, color: Colors.red,),
+                icon: const Icon(
+                  Icons.delete_forever_rounded,
+                  color: Colors.red,
+                ),
               ),
             ],
           ),

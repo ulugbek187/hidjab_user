@@ -49,7 +49,9 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         formStatus: FormsStatus.loading,
       ),
     );
-    NetworkResponse networkResponse = await basketRepo.getBaskets();
+    NetworkResponse networkResponse = await basketRepo.getBaskets(
+      event.userId,
+    );
 
     if (networkResponse.errorText.isEmpty) {
       List<BasketModel> baskets = networkResponse.data;

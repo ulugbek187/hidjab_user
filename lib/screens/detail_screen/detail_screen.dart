@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -101,7 +102,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               onPressed: () {},
                               icon: SvgPicture.asset(
                                 AppIcons.arrowBack,
-                                color: Colors.white,
+                                colorFilter: const ColorFilter.mode( Colors.white, BlendMode.srcIn),
+
                               ),
                             ),
                             IconButton(
@@ -111,7 +113,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               onPressed: () {},
                               icon: SvgPicture.asset(
                                 AppIcons.arrowNext,
-                                color: Colors.white,
+                                colorFilter: const ColorFilter.mode( Colors.white, BlendMode.srcIn),
+
                               ),
                             ),
                           ],
@@ -194,7 +197,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 // modelName: widget.productModel.modelName,
                                 allPrice: widget.productModel.price,
                                 countOfProducts: 1,
-                                uuid: '', categoryName: '', images: '', description: '', rate: 2, modelName: '',
+                                uuid: '',
+                                categoryName: '',
+                                images: '',
+                                description: '',
+                                rate: 2,
+                                modelName: '',
+                                userId: FirebaseAuth.instance.currentUser!.uid,
                               );
                               context.read<BasketBloc>().add(
                                     AddToBasketEvent(
@@ -423,7 +432,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   },
                                   rate: state.products[index].rate.toString(),
                                   productName:
-                                      state.products[index].productName, order: '',
+                                      state.products[index].productName,
+                                  order: '',
                                   // order: state.products[index].countOfOrders
                                   //     .toString(),
                                 ),

@@ -18,7 +18,7 @@ Future<void> configureLocalTimeZone() async {
 
 class LocalNotificationService {
   static final LocalNotificationService localNotificationService =
-  LocalNotificationService._();
+      LocalNotificationService._();
 
   factory LocalNotificationService() {
     return localNotificationService;
@@ -27,20 +27,20 @@ class LocalNotificationService {
   LocalNotificationService._();
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
+      FlutterLocalNotificationsPlugin();
 
   void init(
-      GlobalKey<NavigatorState> navigatorKey,
-      ) async {
+    GlobalKey<NavigatorState> navigatorKey,
+  ) async {
     // Android
     const AndroidInitializationSettings androidInitializationSettings =
-    AndroidInitializationSettings(
+        AndroidInitializationSettings(
       "app_icon",
     );
 
     //IOS
     final DarwinInitializationSettings initializationSettingsDarwin =
-    DarwinInitializationSettings(
+        DarwinInitializationSettings(
       onDidReceiveLocalNotification: onDidReceiveLocalNotification,
     );
 
@@ -50,22 +50,22 @@ class LocalNotificationService {
 
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: (notification) {
-          if (notification.payload != null) {
-            // Navigator.push(navigatorKey.currentContext!,
-            //     MaterialPageRoute(builder: (context) {
-            //   return UsersScreen();
-            // }));
-          }
-        });
+      if (notification.payload != null) {
+        // Navigator.push(navigatorKey.currentContext!,
+        //     MaterialPageRoute(builder: (context) {
+        //   return UsersScreen();
+        // }));
+      }
+    });
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-        IOSFlutterLocalNotificationsPlugin>()
+            IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+          alert: true,
+          badge: true,
+          sound: true,
+        );
     tz.initializeTimeZones();
   }
 
@@ -73,12 +73,11 @@ class LocalNotificationService {
     'vm:entry-point',
   )
   void notificationTapBackground(
-      NotificationResponse notificationResponse,
-      ) {
-  }
+    NotificationResponse notificationResponse,
+  ) {}
 
   AndroidNotificationChannel androidNotificationChannel =
-  const AndroidNotificationChannel(
+      const AndroidNotificationChannel(
     "my_channel",
     "Notification Lesson ",
     importance: Importance.max,
@@ -87,12 +86,11 @@ class LocalNotificationService {
 
   //IOS
   void onDidReceiveLocalNotification(
-      int id,
-      String? title,
-      String? body,
-      String? payload,
-      ) async {
-  }
+    int id,
+    String? title,
+    String? body,
+    String? payload,
+  ) async {}
 
   void showNotification({
     required String title,
@@ -149,7 +147,7 @@ class LocalNotificationService {
       ),
       androidScheduleMode: AndroidScheduleMode.alarmClock,
       uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,
+          UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 
@@ -179,8 +177,8 @@ class LocalNotificationService {
   }
 
   cancelNotification(
-      int id,
-      ) {
+    int id,
+  ) {
     flutterLocalNotificationsPlugin.cancel(
       id,
     );

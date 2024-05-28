@@ -5,12 +5,10 @@ import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import '../../../utils/colors/app_colors.dart';
 
 class GlobalTextField extends StatelessWidget {
-  const GlobalTextField(
-
-      {
+  const GlobalTextField({
     super.key,
     required this.title,
-     this.focusNode,
+    this.focusNode,
     required this.icon,
     required this.controller,
     required this.validate,
@@ -21,7 +19,7 @@ class GlobalTextField extends StatelessWidget {
     required this.inputFormatter,
     required this.onChanged,
   });
-final FocusNode? focusNode;
+  final FocusNode? focusNode;
   final String title;
   final String validateText;
   final String validateEmptyText;

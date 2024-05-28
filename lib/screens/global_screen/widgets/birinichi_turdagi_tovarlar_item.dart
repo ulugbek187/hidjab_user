@@ -38,8 +38,12 @@ class OneMethodTovarITem extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage(
                 imageUrl: image,
-                placeholder: (context, url) => const CircularProgressIndicator(),
-                errorWidget: (context, url, error) =>  const Icon(Icons.error, color: Colors.red,),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
                 width: 130.w,
                 height: 140.h,
               ),
@@ -85,8 +89,11 @@ class TwoMethodTovarITem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width/2-15,
-        margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h,),
+        width: width / 2 - 15,
+        margin: EdgeInsets.symmetric(
+          horizontal: 5.w,
+          vertical: 5.h,
+        ),
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
@@ -101,10 +108,14 @@ class TwoMethodTovarITem extends StatelessWidget {
             SizedBox(height: 8.h),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child:CachedNetworkImage(
+              child: CachedNetworkImage(
                 imageUrl: image,
-                placeholder: (context, url) => const CircularProgressIndicator(),
-                errorWidget: (context, url, error) =>  const Icon(Icons.error, color: Colors.red,),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
                 width: 130.w,
                 height: 140.h,
               ),
@@ -229,8 +240,12 @@ class FourMethodTovarITem extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: CachedNetworkImage(
                 imageUrl: image,
-                placeholder: (context, url) => const CircularProgressIndicator(),
-                errorWidget: (context, url, error) =>  const Icon(Icons.error, color: Colors.red,),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
+                  color: Colors.red,
+                ),
                 width: 130.w,
                 height: 140.h,
               ),
@@ -240,7 +255,7 @@ class FourMethodTovarITem extends StatelessWidget {
               firstTitle,
               style: AppTextStyle.width400
                   .copyWith(fontSize: 14.w, color: Colors.black),
-            overflow: TextOverflow.ellipsis,
+              overflow: TextOverflow.ellipsis,
             ),
             SizedBox(height: 5.h),
             Container(
@@ -299,7 +314,10 @@ class FirstProductsITem extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: image,
               placeholder: (context, url) => const CircularProgressIndicator(),
-              errorWidget: (context, url, error) =>  const Icon(Icons.error, color: Colors.red,),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+                color: Colors.red,
+              ),
               width: 130.w,
               height: 140.h,
             ),

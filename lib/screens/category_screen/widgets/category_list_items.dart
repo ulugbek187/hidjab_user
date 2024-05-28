@@ -124,8 +124,12 @@ class ListViewContainer extends StatelessWidget {
                 height: 98.h,
                 child: CachedNetworkImage(
                   imageUrl: image,
-                  placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) =>  const Icon(Icons.error, color: Colors.red,),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
                   width: 120.w,
                   height: 140.h,
                 ),

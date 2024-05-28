@@ -4,16 +4,16 @@ import '../colors/app_colors.dart';
 
 class AppConstants {
   static const String products = "books";
+  static const String users = "users";
   static const String basket = "basket";
   static const String categories = "categories";
-
 
   static String placeHolder = "";
   static RegExp emailRegExp = RegExp(
       r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
   static RegExp passwordRegExp = RegExp(r"^(?=.*[A-Z]).{8,}$");
   static RegExp telegramOnlyLettersAndNumbersWithoutFirstCapital =
-  RegExp(r'^[a-z0-9]+$');
+      RegExp(r'^[a-z0-9]+$');
   static RegExp noMinusOrLettersNoZero = RegExp(r'^[^0a-zA-Z-]');
 
   static RegExp textRegExp = RegExp("[a-zA-Z]");
@@ -27,6 +27,6 @@ class AppConstants {
   static String subCategories = "sub_categories";
 
   static SystemUiOverlayStyle getOverlayStyle() => const SystemUiOverlayStyle(
-    statusBarColor: AppColors.transparent,
-  );
+        statusBarColor: AppColors.transparent,
+      );
 }

@@ -23,7 +23,6 @@ class GetProductsByCategoryId extends ProductEvent {
   List<Object?> get props => [categoryDocId];
 }
 
-
 class SearchProductEvent extends ProductEvent {
   final String input;
 

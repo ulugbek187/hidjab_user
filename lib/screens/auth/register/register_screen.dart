@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hidjab_user/bloc/auth/auth_bloc.dart';
+import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/screens/auth/widgets/global_passwordfield.dart';
 import 'package:hidjab_user/screens/auth/widgets/global_textbutton.dart';
 import 'package:hidjab_user/screens/auth/widgets/global_textfield.dart';
@@ -149,15 +150,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 isValidateThree) {
                               String cleanedPhone = phoneController.text
                                   .replaceAll(RegExp(r'\D+'), '');
+
+                              UserModel user = UserModel(
+                                username: nameController.text,
+                                phoneNumber: cleanedPhone,
+                                password: passwordController.text,
+                                userId: '',
+                                authUid: '',
+                              );
                               context.read<AuthBloc>().add(
                                     RegisterUserEvent(
-                                      userModel: UserModel(
-                                        username: nameController.text,
-                                        phoneNumber: cleanedPhone,
-                                        password: passwordController.text,
-                                        userId: '',
-                                        authUid: '',
-                                      ),
+                                      userModel: user,
+                                    ),
+                                  );
+                              context.read<UserBloc>().add(
+                                    AddUserEvent(
+                                      userModel: user,
                                     ),
                                   );
                             }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hidjab_user/bloc/auth/auth_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_event.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
 import 'package:hidjab_user/bloc/product/product_bloc.dart';
+import 'package:hidjab_user/bloc/user/user_bloc.dart';
+import 'package:hidjab_user/data/repo/auth_repository.dart';
 import 'package:hidjab_user/data/repo/basket_repo.dart';
 import 'package:hidjab_user/data/repo/category_repo.dart';
 import 'package:hidjab_user/data/repo/product_repo.dart';
+import 'package:hidjab_user/data/repo/user_repo.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/servises/local_notifty_servises.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
@@ -34,6 +38,12 @@ class App extends StatelessWidget {
           create: (_) => ProductRepo(),
         ),
         RepositoryProvider(
+          create: (_) => UserRepo(),
+        ),
+        RepositoryProvider(
+          create: (_) => AuthRepository(),
+        ),
+        RepositoryProvider(
           create: (_) => CategoryRepo(),
         ),
         RepositoryProvider(
@@ -53,9 +63,19 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
+            create: (context) => UserBloc(
+              context.read<UserRepo>(),
+            ),
+          ),
+          BlocProvider(
             create: (context) => BasketBloc(
               context.read<BasketRepo>(),
             ),
+          ),
+          BlocProvider(
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
+            )..add(CheckAuthenticationEvent()),
           ),
           BlocProvider(
             create: (context) => CategoryBloc(

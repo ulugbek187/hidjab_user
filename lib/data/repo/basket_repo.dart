@@ -29,6 +29,7 @@ class BasketRepo {
         allPrice: 0.0,
         countOfProducts: 0,
         uuid: '',
+        userId: '',
       );
 
       for (var element in baskets) {
@@ -47,18 +48,18 @@ class BasketRepo {
       } else {
         DocumentReference documentReference = await FirebaseFirestore.instance
             .collection(
-          AppConstants.basket,
-        )
+              AppConstants.basket,
+            )
             .add(
-          basketModel.toJson(),
-        );
+              basketModel.toJson(),
+            );
         await FirebaseFirestore.instance
             .collection(
-          AppConstants.basket,
-        )
+              AppConstants.basket,
+            )
             .doc(
-          documentReference.id,
-        )
+              documentReference.id,
+            )
             .update({
           "uuid": documentReference.id,
         });
@@ -76,14 +77,14 @@ class BasketRepo {
     try {
       await FirebaseFirestore.instance
           .collection(
-        AppConstants.basket,
-      )
+            AppConstants.basket,
+          )
           .doc(
-        basketModel.uuid,
-      )
+            basketModel.uuid,
+          )
           .update(
-        basketModel.toJsonForUpdate(),
-      );
+            basketModel.toJsonForUpdate(),
+          );
       return NetworkResponse(data: 'success');
     } on FirebaseException catch (e) {
       return NetworkResponse(
@@ -92,18 +93,19 @@ class BasketRepo {
     }
   }
 
-  Future<NetworkResponse> getBaskets() async {
+  Future<NetworkResponse> getBaskets(String userId) async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(AppConstants.basket)
+          .where('userId', isEqualTo: userId)
           .get();
 
       List<BasketModel> baskets = querySnapshot.docs
           .map(
             (e) => BasketModel.fromJson(
-          e.data() as Map<String, dynamic>,
-        ),
-      )
+              e.data() as Map<String, dynamic>,
+            ),
+          )
           .toList();
 
       return NetworkResponse(
@@ -121,11 +123,11 @@ class BasketRepo {
     try {
       await FirebaseFirestore.instance
           .collection(
-        AppConstants.basket,
-      )
+            AppConstants.basket,
+          )
           .doc(
-        uuid,
-      )
+            uuid,
+          )
           .delete();
       return NetworkResponse(data: 'success');
     } on FirebaseException catch (e) {
@@ -140,11 +142,11 @@ class BasketRepo {
       .snapshots()
       .map(
         (event) => event.docs
-        .map(
-          (e) => BasketModel.fromJson(
-        e.data(),
-      ),
-    )
-        .toList(),
-  );
+            .map(
+              (e) => BasketModel.fromJson(
+                e.data(),
+              ),
+            )
+            .toList(),
+      );
 }
