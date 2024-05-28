@@ -17,7 +17,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   _getCategories(GetCategories event, emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
 
@@ -26,14 +26,14 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     if (networkResponse.errorText.isEmpty) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormsStatus.success,
           categories: networkResponse.data,
         ),
       );
     } else {
       emit(
         state.copyWith(
-          formStatus: FormStatus.error,
+          formStatus: FormsStatus.error,
           error: networkResponse.errorText,
         ),
       );
@@ -43,7 +43,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   _listenAllCategories(ListenAllCategoriesEvent event, Emitter emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
 
@@ -51,14 +51,14 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         onData: (List<CategoryModel> ctg) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormsStatus.success,
           listenableCategories: ctg,
         ),
       );
     }, onError: (e, s) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.error,
+          formStatus: FormsStatus.error,
           error: e.toString(),
         ),
       );

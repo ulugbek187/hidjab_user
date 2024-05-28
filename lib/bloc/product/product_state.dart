@@ -8,7 +8,7 @@ final class ProductState extends Equatable {
 
   final List<ProductModel> recommendedProducts;
 
-  final FormStatus formStatus;
+  final FormsStatus formStatus;
   final String errorText;
   final String statusMessage;
 
@@ -23,7 +23,7 @@ final class ProductState extends Equatable {
   ProductState copyWith({
     String? errorText,
     String? statusMessage,
-    FormStatus? formStatus,
+    FormsStatus? formStatus,
     List<ProductModel>? products,
     List<ProductModel>? categoryProducts,
     List<ProductModel>? recommendedProducts,
@@ -38,7 +38,7 @@ final class ProductState extends Equatable {
       );
 
   static ProductState initial() => const ProductState(
-        formStatus: FormStatus.pure,
+        formStatus: FormsStatus.pure,
         statusMessage: '',
         errorText: '',
         products: [],

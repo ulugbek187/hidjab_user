@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hidjab_user/screens/auth/login/login_screen.dart';
+import 'package:hidjab_user/screens/auth/register/register_screen.dart';
 import 'package:hidjab_user/screens/category_screen/category_screen.dart';
 import 'package:hidjab_user/screens/contact_us/contact_us_screen.dart';
 import 'package:hidjab_user/screens/splash_screen/splash_screen.dart';
@@ -24,6 +26,9 @@ class AppRoutes {
       case RouteNames.contactUsScreen:
         return navigate(
           const ContactUsScreen(),
+        ); case RouteNames.login:
+        return navigate(
+          const LoginScreen(),
         );
       case RouteNames.categoryScreen:
         return navigate(
@@ -35,6 +40,9 @@ class AppRoutes {
       case RouteNames.basketScreen:
         return navigate(
           const BasketScreen(),
+        );case RouteNames.signup:
+        return navigate(
+          const RegisterScreen(),
         );
       case RouteNames.productDetailScreen:
         return navigate(
@@ -74,4 +82,6 @@ class RouteNames {
   static const String basketScreen = "/basket_screen";
   static const String contactUsScreen = "/contact_us_screen";
   static const String productDetailScreen = "/product_detail_screen";
+  static const String signup = "/signup";
+  static const String login = "/login";
 }

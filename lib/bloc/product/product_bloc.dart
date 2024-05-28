@@ -34,7 +34,7 @@ final  ProductRepo productRepo;
   _listenProductsCategoryId(GetProductsByCategoryId event, Emitter emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
 
@@ -43,7 +43,7 @@ final  ProductRepo productRepo;
       onData: (List<ProductModel> ctgPr) {
         emit(
           state.copyWith(
-            formStatus: FormStatus.success,
+            formStatus: FormsStatus.success,
             categoryProducts: ctgPr,
           ),
         );
@@ -51,7 +51,7 @@ final  ProductRepo productRepo;
       onError: (error, stackTrace) {
         emit(
           state.copyWith(
-            formStatus: FormStatus.error,
+            formStatus: FormsStatus.error,
             errorText: error.toString(),
           ),
         );
@@ -104,7 +104,7 @@ final  ProductRepo productRepo;
   ) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
 
@@ -116,7 +116,7 @@ final  ProductRepo productRepo;
         emit(
           state.copyWith(
             products: allProducts,
-            formStatus: FormStatus.success,
+            formStatus: FormsStatus.success,
           ),
         );
       },

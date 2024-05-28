@@ -28,7 +28,7 @@ class NabiBloc extends Bloc<NabiEvent, NabiState> {
   _getCategoryProducts(GetCategoryProductsEvent event, emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
 
@@ -41,14 +41,14 @@ class NabiBloc extends Bloc<NabiEvent, NabiState> {
     if (pr.isNotEmpty) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormsStatus.success,
           products: pr,
         ),
       );
     } else {
       emit(
         state.copyWith(
-          formStatus: FormStatus.error,
+          formStatus: FormsStatus.error,
           errorText: 'networkResponse.errorText',
         ),
       );

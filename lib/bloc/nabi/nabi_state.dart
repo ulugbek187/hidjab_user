@@ -7,7 +7,7 @@ class NabiState extends Equatable {
   final List<CategoryModel> categories;
   final List<List<ProductModel>> products;
   final String errorText;
-  final FormStatus formStatus;
+  final FormsStatus formStatus;
 
   const NabiState({
     required this.products,
@@ -20,7 +20,7 @@ class NabiState extends Equatable {
     List<CategoryModel>? categories,
     List<List<ProductModel>>? products,
     String? errorText,
-    FormStatus? formStatus,
+    FormsStatus? formStatus,
   }) =>
       NabiState(
         products: products ?? this.products,
@@ -33,7 +33,7 @@ class NabiState extends Equatable {
         products: [],
         categories: [],
         errorText: '',
-        formStatus: FormStatus.pure,
+        formStatus: FormsStatus.pure,
       );
 
   @override

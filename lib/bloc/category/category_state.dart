@@ -3,7 +3,7 @@ import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/data/models/category_model.dart';
 
 class CategoryState extends Equatable {
-  final FormStatus formStatus;
+  final FormsStatus formStatus;
   final String error;
   final String statusMessage;
   final List<CategoryModel> listenableCategories;
@@ -18,7 +18,7 @@ class CategoryState extends Equatable {
   });
 
   CategoryState copyWith({
-    FormStatus? formStatus,
+    FormsStatus? formStatus,
     String? error,
     String? statusMessage,
     List<CategoryModel>? listenableCategories,
@@ -42,7 +42,7 @@ class CategoryState extends Equatable {
       ];
 
   static CategoryState initial() => const CategoryState(
-        formStatus: FormStatus.pure,
+        formStatus: FormsStatus.pure,
         error: '',
         listenableCategories: [],
         categories: [],

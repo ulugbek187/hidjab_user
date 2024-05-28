@@ -70,12 +70,12 @@ class _BasketScreenState extends State<BasketScreen> {
               child: Lottie.asset(AppImages.basket),
             );
           }
-          if (state.formStatus == FormStatus.loading) {
+          if (state.formStatus == FormsStatus.loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state.formStatus == FormStatus.success) {
+          if (state.formStatus == FormsStatus.success) {
             return Column(
               children: [
                 Expanded(

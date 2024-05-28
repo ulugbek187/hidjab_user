@@ -20,7 +20,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   _addToBasket(AddToBasketEvent event, emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
     NetworkResponse networkResponse = await basketRepo.addToBasket(
@@ -30,13 +30,13 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     if (networkResponse.errorText.isEmpty) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormsStatus.success,
         ),
       );
     } else {
       emit(
         state.copyWith(
-          formStatus: FormStatus.error,
+          formStatus: FormsStatus.error,
           errorText: networkResponse.errorText,
         ),
       );
@@ -46,7 +46,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   _getBaskets(GetBasketEvent event, emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
     NetworkResponse networkResponse = await basketRepo.getBaskets();
@@ -55,7 +55,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       List<BasketModel> baskets = networkResponse.data;
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormsStatus.success,
           baskets: baskets,
         ),
       );
@@ -65,7 +65,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   _updateBasket(UpdateBasketEvent event, emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
     NetworkResponse networkResponse = await basketRepo.updateCard(
@@ -74,13 +74,13 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     if (networkResponse.errorText.isEmpty) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormsStatus.success,
         ),
       );
     } else {
       emit(
         state.copyWith(
-          formStatus: FormStatus.error,
+          formStatus: FormsStatus.error,
           errorText: networkResponse.errorText,
         ),
       );
@@ -90,7 +90,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   _deleteBasket(DeleteBasketEvent event, emit) async {
     emit(
       state.copyWith(
-        formStatus: FormStatus.loading,
+        formStatus: FormsStatus.loading,
       ),
     );
     NetworkResponse networkResponse = await basketRepo.deleteCard(
@@ -99,13 +99,13 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
     if (networkResponse.errorText.isEmpty) {
       emit(
         state.copyWith(
-          formStatus: FormStatus.success,
+          formStatus: FormsStatus.success,
         ),
       );
     } else {
       emit(
         state.copyWith(
-          formStatus: FormStatus.error,
+          formStatus: FormsStatus.error,
           errorText: networkResponse.errorText,
         ),
       );
@@ -119,7 +119,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         if (!emit.isDone) {
           emit(
             state.copyWith(
-              formStatus: FormStatus.success,
+              formStatus: FormsStatus.success,
               baskets: baskets,
             ),
           );
@@ -129,7 +129,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       if (!emit.isDone) {
         emit(
           state.copyWith(
-            formStatus: FormStatus.error,
+            formStatus: FormsStatus.error,
             errorText: e.toString(),
           ),
         );

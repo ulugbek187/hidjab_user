@@ -11,13 +11,13 @@ class BasketState extends Equatable {
     required this.statusText,
   });
 
-  final FormStatus formStatus;
+  final FormsStatus formStatus;
   final List<BasketModel> baskets;
   final String errorText;
   final String statusText;
 
   BasketState copyWith({
-    FormStatus? formStatus,
+    FormsStatus? formStatus,
     List<BasketModel>? baskets,
     String? errorText,
     String? statusText,
@@ -30,7 +30,7 @@ class BasketState extends Equatable {
       );
 
   static BasketState initial() => const BasketState(
-        formStatus: FormStatus.pure,
+        formStatus: FormsStatus.pure,
         errorText: '',
         baskets: [],
         statusText: '',

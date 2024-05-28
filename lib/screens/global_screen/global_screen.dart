@@ -108,17 +108,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     BlocBuilder<CategoryBloc, CategoryState>(
                       builder: (context, state) {
-                        if (state.formStatus == FormStatus.loading) {
+                        if (state.formStatus == FormsStatus.loading) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
                         }
-                        if (state.formStatus == FormStatus.error) {
+                        if (state.formStatus == FormsStatus.error) {
                           return Center(
                             child: Text(state.error),
                           );
                         }
-                        if (state.formStatus == FormStatus.success) {
+                        if (state.formStatus == FormsStatus.success) {
                           return SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Row(
@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   BlocBuilder<NabiBloc, NabiState>(
                                       builder: (context, state) {
                                     if (state.formStatus ==
-                                        FormStatus.success) {
+                                        FormsStatus.success) {
                                       return SizedBox(
                                         height: 300.h,
                                         child: ListView.builder(
@@ -262,11 +262,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                             }),
                                       );
                                     }
-                                    if (state.formStatus == FormStatus.error) {
+                                    if (state.formStatus == FormsStatus.error) {
                                       return Text(state.errorText);
                                     }
                                     if (state.formStatus ==
-                                        FormStatus.loading) {
+                                        FormsStatus.loading) {
                                       return const CircularProgressIndicator();
                                     }
                                     return const SizedBox.shrink();
