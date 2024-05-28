@@ -19,9 +19,22 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   _init() {
+    Future.microtask((){
+      context.read<CategoryBloc>().add(
+        GetCategories(),
+      );
+      context.read<NabiBloc>().add(
+        GetCategoryEvent(
+          categories: context.read<CategoryBloc>().state.categories,
+        ),
+      );
+      context.read<NabiBloc>().add(
+        const GetCategoryProductsEvent(),
+      );
+    });
     Future.delayed(
       const Duration(
-        seconds: 1,
+        seconds: 3,
       ),
       () {
         Navigator.pushReplacementNamed(
@@ -40,18 +53,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<CategoryBloc>().add(
-          GetCategories(),
-        );
-    context.read<NabiBloc>().add(
-          GetCategoryEvent(
-            categories: context.read<CategoryBloc>().state.categories,
-          ),
-        );
-    context.read<NabiBloc>().add(
-          const GetCategoryProductsEvent(),
-        );
-
     height = MediaQuery.sizeOf(context).height;
     width = MediaQuery.sizeOf(context).width;
 
