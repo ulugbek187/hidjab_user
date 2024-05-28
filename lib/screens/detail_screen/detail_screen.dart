@@ -66,9 +66,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       width: double.infinity,
                       height: 405.h,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.zero,
-                          color: AppColors.white,
-                          border: Border.all(width: 1, color: AppColors.black)),
+                        borderRadius: BorderRadius.zero,
+                        color: AppColors.white,
+                        border: Border.all(
+                          width: 1,
+                          color: AppColors.black,
+                        ),
+                      ),
                       child: Image.network(
                         widget.productModel.imageUrl,
                         height: 305.h,
@@ -102,8 +106,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               onPressed: () {},
                               icon: SvgPicture.asset(
                                 AppIcons.arrowBack,
-                                colorFilter: const ColorFilter.mode( Colors.white, BlendMode.srcIn),
-
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.white, BlendMode.srcIn),
                               ),
                             ),
                             IconButton(
@@ -113,8 +117,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               onPressed: () {},
                               icon: SvgPicture.asset(
                                 AppIcons.arrowNext,
-                                colorFilter: const ColorFilter.mode( Colors.white, BlendMode.srcIn),
-
+                                colorFilter: const ColorFilter.mode(
+                                    Colors.white, BlendMode.srcIn),
                               ),
                             ),
                           ],

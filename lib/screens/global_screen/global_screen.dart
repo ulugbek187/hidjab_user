@@ -195,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Spacer(),
                           Image.asset(
                             AppImages.recomended,
-                            width: 200.w,
+                            width: 100.w,
                             height: 70.h,
                           ),
                         ],
