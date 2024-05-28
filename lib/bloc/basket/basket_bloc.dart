@@ -117,7 +117,7 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   Future<void> _listenAllBaskets(
       ListenBasketEvent event, Emitter<BasketState> emit) async {
     try {
-      await for (final baskets in basketRepo.getAllBasket()) {
+      await for (final baskets in basketRepo.getAllBasket(event.userId)) {
         if (!emit.isDone) {
           emit(
             state.copyWith(

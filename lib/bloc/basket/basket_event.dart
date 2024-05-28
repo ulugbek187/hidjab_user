@@ -32,8 +32,15 @@ class UpdateBasketEvent extends BasketEvent {
 }
 
 class ListenBasketEvent extends BasketEvent {
+  final String userId;
+  const ListenBasketEvent({
+    required this.userId,
+  });
+
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+    userId,
+  ];
 }
 
 class GetBasketEvent extends BasketEvent {

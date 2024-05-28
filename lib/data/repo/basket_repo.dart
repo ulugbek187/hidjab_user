@@ -137,8 +137,8 @@ class BasketRepo {
     }
   }
 
-  Stream<List<BasketModel>> getAllBasket() => FirebaseFirestore.instance
-      .collection(AppConstants.basket)
+  Stream<List<BasketModel>> getAllBasket(String userId) => FirebaseFirestore.instance
+      .collection(AppConstants.basket).where('userId',isEqualTo: userId)
       .snapshots()
       .map(
         (event) => event.docs
