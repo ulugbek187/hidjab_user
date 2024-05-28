@@ -41,32 +41,12 @@ class ProductRepo {
     }
   }
 
-  // Future<NetworkResponse> getCtgPr(){
-  //
-  //   try{
-  //
-  //     FirebaseFirestore.instance.collection(AppConstants.products).get();
-  //
-  //
-  //
-  //
-  //   }catch(e){
-  //
-  //   }
-  //
-  //
-  //
-  //
-  //
-  //
-  // }
-
-  Stream<List<ProductModel>> listenProductsByCategoryId(String categoryiD) =>
+  Stream<List<ProductModel>> listenProductsByCategoryId(String categoryId) =>
       FirebaseFirestore.instance
           .collection(AppConstants.products)
           .where(
             "category_id",
-            isEqualTo: categoryiD,
+            isEqualTo: categoryId,
           )
           .snapshots()
           .map(
@@ -78,4 +58,25 @@ class ProductRepo {
                 )
                 .toList(),
           );
+
+  Future<NetworkResponse> getCategoryProducts(String categoryId) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection(AppConstants.products)
+          .where('category_id', isEqualTo: categoryId)
+          .get();
+
+      List<ProductModel> pr = querySnapshot.docs
+          .map((e) => ProductModel.fromJson(e.data() as Map<String, dynamic>))
+          .toList();
+
+      return NetworkResponse(
+        data: pr,
+      );
+    } on FirebaseException catch (e) {
+      return NetworkResponse(
+        errorText: e.toString(),
+      );
+    }
+  }
 }

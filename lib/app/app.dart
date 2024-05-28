@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_event.dart';
+import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
 import 'package:hidjab_user/bloc/product/product_bloc.dart';
 import 'package:hidjab_user/data/repo/basket_repo.dart';
 import 'package:hidjab_user/data/repo/category_repo.dart';
@@ -10,7 +11,6 @@ import 'package:hidjab_user/data/repo/product_repo.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/servises/local_notifty_servises.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
-
 import '../bloc/basket/basket_bloc.dart';
 
 class App extends StatelessWidget {
@@ -48,6 +48,11 @@ class App extends StatelessWidget {
             ),
           ),
           BlocProvider(
+            create: (context) => NabiBloc(
+              context.read<ProductRepo>(),
+            ),
+          ),
+          BlocProvider(
             create: (context) => BasketBloc(
               context.read<BasketRepo>(),
             ),
@@ -55,8 +60,12 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => CategoryBloc(
               context.read<CategoryRepo>(),
-            )..add(
+            )
+              ..add(
                 ListenAllCategoriesEvent(),
+              )
+              ..add(
+                GetCategories(),
               ),
           ),
         ],

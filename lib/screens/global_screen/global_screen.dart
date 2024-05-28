@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_state.dart';
+import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
+import 'package:hidjab_user/bloc/nabi/nabi_event.dart';
+import 'package:hidjab_user/bloc/nabi/nabi_state.dart';
 import 'package:hidjab_user/bloc/product/product_event.dart';
 import 'package:hidjab_user/bloc/product/product_state.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
@@ -27,12 +30,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void _init() {
+    Future.microtask(() {
+      List<String> c = [];
+      for (int i = 0;
+          i < context.read<CategoryBloc>().state.categories.length;
+          i++) {
+        c.add(
+          context.read<CategoryBloc>().state.categories[i].docId,
+        );
+      }
+
+      context.read<NabiBloc>().add(
+            GetCategoryProductsEvent(
+              categories: c,
+            ),
+          );
+    });
+  }
+
   @override
   void initState() {
+    _init();
     Future.microtask(
-          () => context.read<ProductBloc>().add(
-        GetProductsEvent(),
-      ),
+      () => context.read<ProductBloc>().add(
+            GetProductsEvent(),
+          ),
     );
     super.initState();
   }
@@ -83,8 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     await Future.delayed(const Duration(seconds: 5));
                     if (!context.mounted) return;
                     context.read<ProductBloc>().add(
-                      GetProductsEvent(),
-                    );
+                          GetProductsEvent(),
+                        );
                   },
                 ),
               ),
@@ -118,15 +141,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                       );
                                     }),
                                 ...List.generate(
-                                  state.categories.length,
-                                      (index) => CategoryButton(
-                                    title: state.categories[index].categoryName,
+                                  state.listenableCategories.length,
+                                  (index) => CategoryButton(
+                                    title: state.listenableCategories[index]
+                                        .categoryName,
                                     onTap: () {
                                       Navigator.pushNamed(
                                           context, RouteNames.categoryScreen,
                                           arguments: [
-                                            state.categories[index].docId,
-                                            state.categories[index].categoryName
+                                            state.listenableCategories[index]
+                                                .docId,
+                                            state.listenableCategories[index]
+                                                .categoryName
                                           ]);
                                     },
                                   ),
@@ -140,7 +166,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 10.h),
                     Padding(
-                      padding: EdgeInsets.only(left: 20.w, bottom: 10.h, top: 10.h),
+                      padding:
+                          EdgeInsets.only(left: 20.w, bottom: 10.h, top: 10.h),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -161,7 +188,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           const Spacer(),
-                          Image.asset(AppImages.recomended, width: 200.w,height: 70.h,),
+                          Image.asset(
+                            AppImages.recomended,
+                            width: 200.w,
+                            height: 70.h,
+                          ),
                         ],
                       ),
                     ),
@@ -171,11 +202,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           ...List.generate(
                             state.products.length,
-                                (index) => OneMethodTovarITem(
+                            (index) => OneMethodTovarITem(
                               image: state.products[index].imageUrl,
                               firstTitle: state.products[index].productName,
                               secondTitle:
-                              state.products[index].price.toString(),
+                                  state.products[index].price.toString(),
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -199,8 +230,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Column(
                           children: List.generate(
                             state.categories.length,
-                                (index) => Container(
-                              width: double.infinity,
+                            (i) => Container(
+                              width: width,
                               decoration: const BoxDecoration(
                                 color: AppColors.white,
                               ),
@@ -211,14 +242,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 15.w, vertical: 18.h),
                                     child: Text(
-                                      state.categories[index].categoryName,
+                                      state.categories[i].categoryName,
                                       style: AppTextStyle.width600
                                           .copyWith(fontSize: 18.w),
                                     ),
                                   ),
+                                  BlocBuilder<NabiBloc, NabiState>(
+                                      builder: (context, state) {
+                                    if (state.formStatus ==
+                                        FormStatus.success) {
+                                      return ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: state.products.length,
+                                          itemBuilder: (context, index) {
+                                            return SizedBox(
+                                              height: 50.h,
+                                              child: Text(
+                                                state.products[i][index]
+                                                    .productName,
+                                              ),
+                                            );
+                                          });
+                                    }
+                                    if (state.formStatus == FormStatus.error) {
+                                      return Text(state.errorText);
+                                    }
+                                    if (state.formStatus ==
+                                        FormStatus.loading) {
+                                      return const CircularProgressIndicator();
+                                    }
+                                    return const SizedBox.shrink();
+                                  }),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: 15.w, vertical: 10.h),
+                                      horizontal: 15.w,
+                                      vertical: 10.h,
+                                    ),
                                     child: Row(
                                       children: [
                                         Text(
@@ -315,19 +374,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           ...List.generate(
                             state.products.length,
-                                (index) => TwoMethodTovarITem(
+                            (index) => TwoMethodTovarITem(
                               image: state.products[index].imageUrl,
                               firstTitle: state.products[index].productName,
-                              secondTitle:
-                              "${state.products[index].price} Сум",
+                              secondTitle: "${state.products[index].price} Сум",
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductDetailsScreen(
-                                          productModel: state.products[index],
-                                        ),
+                                    builder: (context) => ProductDetailsScreen(
+                                      productModel: state.products[index],
+                                    ),
                                   ),
                                 );
                               },
@@ -348,10 +405,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _searchProduct() {
     context.read<ProductBloc>().add(
-      SearchProductEvent(
-        input: textEditingController.text,
-      ),
-    );
+          SearchProductEvent(
+            input: textEditingController.text,
+          ),
+        );
   }
 
   @override

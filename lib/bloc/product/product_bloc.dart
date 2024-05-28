@@ -29,7 +29,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     );
   }
 
-  ProductRepo productRepo;
+final  ProductRepo productRepo;
 
   _listenProductsCategoryId(GetProductsByCategoryId event, Emitter emit) async {
     emit(

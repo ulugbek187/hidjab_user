@@ -4,6 +4,7 @@ import 'package:hidjab_user/bloc/category/category_state.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/data/models/category_model.dart';
 import 'package:hidjab_user/data/repo/category_repo.dart';
+import 'package:hidjab_user/data/response/network_response.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc(this.categoryRepo) : super(CategoryState.initial()) {
@@ -13,12 +14,30 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
   CategoryRepo categoryRepo;
 
-  _getCategories(GetCategories event, emit){
+  _getCategories(GetCategories event, emit) async {
+    emit(
+      state.copyWith(
+        formStatus: FormStatus.loading,
+      ),
+    );
 
-    emit(state.copyWith(
-      formStatus: FormStatus.loading,
-    ),);
+    NetworkResponse networkResponse = await categoryRepo.getAllCategoris();
 
+    if (networkResponse.errorText.isEmpty) {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.success,
+          categories: networkResponse.data,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          formStatus: FormStatus.error,
+          error: networkResponse.errorText,
+        ),
+      );
+    }
   }
 
   _listenAllCategories(ListenAllCategoriesEvent event, Emitter emit) async {
@@ -33,7 +52,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       emit(
         state.copyWith(
           formStatus: FormStatus.success,
-          categories: ctg,
+          listenableCategories: ctg,
         ),
       );
     }, onError: (e, s) {

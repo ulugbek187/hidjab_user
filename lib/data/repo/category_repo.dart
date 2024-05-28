@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hidjab_user/data/models/category_model.dart';
+import 'package:hidjab_user/data/response/network_response.dart';
 import 'package:hidjab_user/utils/constans/app_constans.dart';
 
 class CategoryRepo {
@@ -15,4 +16,24 @@ class CategoryRepo {
             )
             .toList(),
       );
+
+  Future<NetworkResponse> getAllCategoris() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection(AppConstants.categories)
+          .get();
+
+      List<CategoryModel> c = querySnapshot.docs
+          .map((e) => CategoryModel.fromJson(e.data() as Map<String, dynamic>))
+          .toList();
+
+      return NetworkResponse(
+        data: c,
+      );
+    } on FirebaseException catch (e) {
+      return NetworkResponse(
+        errorText: e.toString(),
+      );
+    }
+  }
 }
