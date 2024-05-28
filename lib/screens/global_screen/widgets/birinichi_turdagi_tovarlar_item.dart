@@ -22,8 +22,10 @@ class OneMethodTovarITem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 5.w),
         width: 150.w,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.w),
           color: Colors.white,
           border: Border.all(
             color: Colors.grey,

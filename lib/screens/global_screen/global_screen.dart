@@ -257,22 +257,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                     if (state.formStatus ==
                                         FormsStatus.success) {
                                       return SizedBox(
-                                        height: 300.h,
+                                        height: 240.h,
                                         child: ListView.builder(
                                             scrollDirection: Axis.horizontal,
                                             itemCount: state.products[i].length,
                                             itemBuilder: (context, index) {
-                                              return SizedBox(
-                                                height: 300.h,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Text(
-                                                    state.products[i][index]
-                                                        .productName,
+                                              return  OneMethodTovarITem(image: state.products[i][index].imageUrl, firstTitle: state.products[i][index].productName, secondTitle: state.products[i][index].price.toString(), onTap: (){
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProductDetailsScreen(
+                                                          productModel: state.products[i][index],
+                                                        ),
                                                   ),
-                                                ),
-                                              );
+                                                );
+                                              });
+                                              //   Padding(
+                                              //   padding:
+                                              //       const EdgeInsets.all(8.0),
+                                              //   child: Text(
+                                              //     state.products[i][index]
+                                              //         .productName,
+                                              //   ),
+                                              // );
                                             }),
                                       );
                                     }

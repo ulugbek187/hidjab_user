@@ -23,66 +23,67 @@ class _SortItemsState extends State<SortItems> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Container(
-          width: 135.w,
-          height: 30.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              width: 1,
-              color: Colors.grey.shade300,
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("Sort:"),
-              DropdownButton<String>(
-                value: dropdownValue,
-                icon: SvgPicture.asset(AppIcons.twoScreenPoluMenuButton),
-                iconSize: 24,
-                elevation: 16,
-                style: const TextStyle(color: Colors.black),
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: <String>['Newest', 'Oldest', 'Middle']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-            ],
-          ),
-        ),
+        // Container(
+        //   width: 135.w,
+        //   height: 30.h,
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(10),
+        //     border: Border.all(
+        //       width: 1,
+        //       color: Colors.grey.shade300,
+        //     ),
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //     children: [
+        //       const Text("Sort:"),
+        //       DropdownButton<String>(
+        //         value: dropdownValue,
+        //         icon: SvgPicture.asset(AppIcons.twoScreenPoluMenuButton),
+        //         iconSize: 24,
+        //         elevation: 16,
+        //         style: const TextStyle(color: Colors.black),
+        //         onChanged: (String? newValue) {
+        //           setState(() {
+        //             dropdownValue = newValue!;
+        //           });
+        //         },
+        //         items: <String>['Newest', 'Oldest', 'Middle']
+        //             .map<DropdownMenuItem<String>>((String value) {
+        //           return DropdownMenuItem<String>(
+        //             value: value,
+        //             child: Text(value),
+        //           );
+        //         }).toList(),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // SizedBox(width: 5.w),
+        // Container(
+        //   width: 135.w,
+        //   height: 30.h,
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(10),
+        //     border: Border.all(
+        //       width: 1,
+        //       color: Colors.grey.shade300,
+        //     ),
+        //   ),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //     children: [
+        //       const Text("Filter:"),
+        //       SvgPicture.asset(AppIcons.twoScreenFilterButton),
+        //     ],
+        //   ),
+        // ),
         SizedBox(width: 5.w),
         Container(
-          width: 135.w,
-          height: 30.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              width: 1,
-              color: Colors.grey.shade300,
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Text("Filter:"),
-              SvgPicture.asset(AppIcons.twoScreenFilterButton),
-            ],
-          ),
-        ),
-        SizedBox(width: 5.w),
-        Container(
-          width: 65.w,
-          height: 30.h,
+          width: 80.w,
+          height: 40.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
@@ -98,7 +99,7 @@ class _SortItemsState extends State<SortItems> {
                   onTap: widget.onGridViewPressed,
                   child: Container(
                     padding: EdgeInsets.all(2.w),
-                    width: 30.w,
+                    width: 40.w,
                     height: 30.h,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -117,7 +118,7 @@ class _SortItemsState extends State<SortItems> {
                   onTap: widget.onListViewPressed,
                   child: Container(
                     padding: EdgeInsets.all(2.w),
-                    width: 30.w,
+                    width: 38.w,
                     height: 30.h,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
