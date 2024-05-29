@@ -7,13 +7,18 @@ import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/data/models/user_model.dart';
 import 'package:hidjab_user/data/repo/auth_repository.dart';
 import 'package:hidjab_user/data/repo/storage_repository.dart';
+import 'package:hidjab_user/data/repo/user_repo.dart';
 import 'package:hidjab_user/data/response/network_response.dart';
+
 part 'auth_event.dart';
 
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc({required this.authRepository}) : super(AuthState.init()) {
+  AuthBloc({
+    required this.authRepository,
+    required this.userRepo,
+  }) : super(AuthState.init()) {
     on<CheckAuthenticationEvent>(_checkAuthentication);
     on<LoginUserEvent>(_loginUser);
     on<RegisterUserEvent>(_registerUser);
@@ -22,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   final AuthRepository authRepository;
+  final UserRepo userRepo;
 
   _checkAuthentication(CheckAuthenticationEvent event, emit) async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -98,18 +104,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     NetworkResponse networkResponse = await authRepository.googleSignIn();
     if (networkResponse.errorText.isEmpty) {
       UserCredential userCredential = networkResponse.data;
+      UserModel userModel = UserModel(
+        authUid: userCredential.user!.uid,
+        phoneNumber: userCredential.user!.phoneNumber ?? "",
+        userId: "",
+        username: userCredential.user!.displayName ?? "",
+        password: '',
+        imageUrl: FirebaseAuth.instance.currentUser!.photoURL ?? '',
+      );
       emit(
         state.copyWith(
           statusMessage: "registered",
           status: FormsStatus.authenticated,
-          userModel: UserModel(
-            authUid: userCredential.user!.uid,
-            phoneNumber: userCredential.user!.phoneNumber ?? "",
-            userId: "",
-            username: userCredential.user!.displayName ?? "",
-            password: '', imageUrl: '',
-          ),
+          userModel: userModel,
         ),
+      );
+
+      userRepo.addUser(
+        userModel,
       );
     } else {
       emit(

@@ -74,7 +74,7 @@ class App extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => AuthBloc(
-              authRepository: context.read<AuthRepository>(),
+              authRepository: context.read<AuthRepository>(),userRepo: context.read<UserRepo>()
             )..add(CheckAuthenticationEvent()),
           ),
           BlocProvider(
