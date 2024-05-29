@@ -39,8 +39,8 @@ class ListenBasketEvent extends BasketEvent {
 
   @override
   List<Object?> get props => [
-    userId,
-  ];
+        userId,
+      ];
 }
 
 class GetBasketEvent extends BasketEvent {

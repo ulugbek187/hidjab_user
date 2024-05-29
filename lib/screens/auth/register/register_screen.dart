@@ -156,7 +156,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 phoneNumber: cleanedPhone,
                                 password: passwordController.text,
                                 userId: '',
-                                authUid: '', imageUrl: '',
+                                authUid: '',
+                                imageUrl: '',
                               );
                               context.read<AuthBloc>().add(
                                     RegisterUserEvent(

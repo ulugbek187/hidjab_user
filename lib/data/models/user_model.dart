@@ -65,6 +65,6 @@ class UserModel {
         username: "",
         authUid: "",
         password: '',
-    imageUrl: '',
+        imageUrl: '',
       );
 }

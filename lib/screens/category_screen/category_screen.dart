@@ -80,7 +80,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     },
                     controller: textEditingController,
                   ),
-
                   SizedBox(height: 10.h),
                   SortItems(
                     onGridViewPressed: () {

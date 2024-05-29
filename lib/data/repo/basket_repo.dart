@@ -137,16 +137,18 @@ class BasketRepo {
     }
   }
 
-  Stream<List<BasketModel>> getAllBasket(String userId) => FirebaseFirestore.instance
-      .collection(AppConstants.basket).where('userId',isEqualTo: userId)
-      .snapshots()
-      .map(
-        (event) => event.docs
-            .map(
-              (e) => BasketModel.fromJson(
-                e.data(),
-              ),
-            )
-            .toList(),
-      );
+  Stream<List<BasketModel>> getAllBasket(String userId) =>
+      FirebaseFirestore.instance
+          .collection(AppConstants.basket)
+          .where('userId', isEqualTo: userId)
+          .snapshots()
+          .map(
+            (event) => event.docs
+                .map(
+                  (e) => BasketModel.fromJson(
+                    e.data(),
+                  ),
+                )
+                .toList(),
+          );
 }

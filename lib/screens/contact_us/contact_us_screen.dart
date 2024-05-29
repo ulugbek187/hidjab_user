@@ -250,7 +250,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   children: [
                     SvgPicture.asset(
                       AppIcons.telegram,
-                      colorFilter: const ColorFilter.mode( Colors.white, BlendMode.srcIn),
+                      colorFilter:
+                          const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                       width: 26.w,
                     ),
                     SizedBox(
@@ -314,7 +315,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   children: [
                     SvgPicture.asset(
                       AppIcons.instagram,
-                      colorFilter: const ColorFilter.mode( Colors.white, BlendMode.srcIn),
+                      colorFilter:
+                          const ColorFilter.mode(Colors.white, BlendMode.srcIn),
                       width: 26.w,
                     ),
                     SizedBox(
