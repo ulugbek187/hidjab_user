@@ -150,7 +150,7 @@ class ShopContainer extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                "\$$price",
+                "$price Сум",
                 style: TextStyle(fontSize: 16.w, color: AppColors.c1C1C1C),
               ),
             ],

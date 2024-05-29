@@ -234,7 +234,7 @@ class _BasketScreenState extends State<BasketScreen> {
                                 ),
                               ),
                               Text(
-                                '\$${calculateAllPrice(state.baskets)}',
+                                '${calculateAllPrice(state.baskets)} Сум',
                                 style: TextStyle(
                                   fontSize: 18.w,
                                   color: AppColors.c1C1C1C,
