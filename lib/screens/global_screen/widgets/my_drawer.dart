@@ -80,23 +80,23 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          ListTile(
-            title: Row(
-              children: [
-                SvgPicture.asset(AppIcons.favourite),
-                SizedBox(
-                  width: 16.w,
-                ),
-                Text(
-                  "Favorites",
-                  style: AppTextStyle.width500.copyWith(
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {},
-          ),
+          // ListTile(
+          //   title: Row(
+          //     children: [
+          //       SvgPicture.asset(AppIcons.favourite),
+          //       SizedBox(
+          //         width: 16.w,
+          //       ),
+          //       Text(
+          //         "Favorites",
+          //         style: AppTextStyle.width500.copyWith(
+          //           color: Colors.black,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          //   onTap: () {},
+          // ),
           ListTile(
             title: Row(
               children: [

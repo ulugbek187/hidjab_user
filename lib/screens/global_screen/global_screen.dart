@@ -77,16 +77,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           IconButton(
             onPressed: () {
-              context.read<AuthBloc>().add(
-                    LogOutUserEvent(),
-                  );
-              context.read<AuthBloc>().add(
-                    LogOutUserEvent(),
-                  );
-              Navigator.pushNamedAndRemoveUntil(
+              // context.read<AuthBloc>().add(
+              //       LogOutUserEvent(),
+              //     );
+              // Navigator.pushNamedAndRemoveUntil(
+              //   context,
+              //   RouteNames.login,
+              //   (route) => false,
+              // );
+              Navigator.pushNamed(
                 context,
-                RouteNames.login,
-                (route) => false,
+                RouteNames.profile,
               );
             },
             icon: SvgPicture.asset(AppIcons.profile),
@@ -262,17 +263,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                             scrollDirection: Axis.horizontal,
                                             itemCount: state.products[i].length,
                                             itemBuilder: (context, index) {
-                                              return  OneMethodTovarITem(image: state.products[i][index].imageUrl, firstTitle: state.products[i][index].productName, secondTitle: state.products[i][index].price.toString(), onTap: (){
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProductDetailsScreen(
-                                                          productModel: state.products[i][index],
+                                              return OneMethodTovarITem(
+                                                  image: state
+                                                      .products[i][index]
+                                                      .imageUrl,
+                                                  firstTitle: state
+                                                      .products[i][index]
+                                                      .productName,
+                                                  secondTitle: state
+                                                      .products[i][index].price
+                                                      .toString(),
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProductDetailsScreen(
+                                                          productModel:
+                                                              state.products[i]
+                                                                  [index],
                                                         ),
-                                                  ),
-                                                );
-                                              });
+                                                      ),
+                                                    );
+                                                  });
                                               //   Padding(
                                               //   padding:
                                               //       const EdgeInsets.all(8.0),
@@ -309,11 +322,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         IconButton(
                                           onPressed: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              RouteNames.categoryScreen,
-                                              arguments: 'All',
-                                            );
+                                            Navigator.pushNamed(context,
+                                                RouteNames.categoryScreen,
+                                                arguments: [
+                                                  state.categories[i].docId,
+                                                  state.categories[i]
+                                                      .categoryName
+                                                ]);
                                           },
                                           icon: SvgPicture.asset(
                                             AppIcons.arrowNext,

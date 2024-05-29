@@ -3,6 +3,7 @@ import 'package:hidjab_user/screens/auth/login/login_screen.dart';
 import 'package:hidjab_user/screens/auth/register/register_screen.dart';
 import 'package:hidjab_user/screens/category_screen/category_screen.dart';
 import 'package:hidjab_user/screens/contact_us/contact_us_screen.dart';
+import 'package:hidjab_user/screens/profile_screen/profile_screen.dart';
 import 'package:hidjab_user/screens/splash_screen/splash_screen.dart';
 
 import '../data/models/product_model.dart';
@@ -41,6 +42,10 @@ class AppRoutes {
       case RouteNames.basketScreen:
         return navigate(
           const BasketScreen(),
+        );
+      case RouteNames.profile:
+        return navigate(
+          const ProfileScreen(),
         );
       case RouteNames.signup:
         return navigate(
@@ -86,4 +91,5 @@ class RouteNames {
   static const String productDetailScreen = "/product_detail_screen";
   static const String signup = "/signup";
   static const String login = "/login";
+  static const String profile = "/profile_screen";
 }

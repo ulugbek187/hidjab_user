@@ -16,9 +16,38 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           UserState.initial(),
         ) {
     on<AddUserEvent>(_addUser);
+    on<GetUserEvent>(_getUser);
   }
 
   final UserRepo userRepo;
+
+  _getUser(GetUserEvent event, emit) async {
+    emit(
+      state.copyWith(
+        formsStatus: FormsStatus.loading,
+      ),
+    );
+
+    NetworkResponse networkResponse = await userRepo.getUser(
+      event.userId,
+    );
+
+    if (networkResponse.errorText.isEmpty) {
+      emit(
+        state.copyWith(
+          formsStatus: FormsStatus.success,
+          userModel: networkResponse.data,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          formsStatus: FormsStatus.error,
+          errorText: networkResponse.errorText,
+        ),
+      );
+    }
+  }
 
   _addUser(AddUserEvent event, emit) async {
     emit(

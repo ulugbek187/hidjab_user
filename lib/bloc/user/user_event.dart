@@ -16,3 +16,16 @@ class AddUserEvent extends UserEvent {
         userModel,
       ];
 }
+
+class GetUserEvent extends UserEvent {
+  final String userId;
+
+  const GetUserEvent({
+    required this.userId,
+  });
+
+  @override
+  List<Object?> get props => [
+        userId,
+      ];
+}
