@@ -29,11 +29,15 @@ class UserRepo {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(AppConstants.users)
-          .where("userId", isEqualTo: userId)
+          .where("authUid", isEqualTo: userId)
           .get();
 
       List<UserModel> users = querySnapshot.docs
-          .map((e) => UserModel.fromJson(e.data() as Map<String, dynamic>))
+          .map(
+            (e) => UserModel.fromJson(
+              e.data() as Map<String, dynamic>,
+            ),
+          )
           .toList();
 
       return NetworkResponse(

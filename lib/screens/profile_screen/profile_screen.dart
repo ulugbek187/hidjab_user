@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hidjab_user/bloc/auth/auth_bloc.dart';
 import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
+import 'package:hidjab_user/screens/profile_screen/widgets/update_text_field.dart';
+import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -27,12 +30,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
+  List<UpdateModel> models = [];
+
   @override
   Widget build(BuildContext context) {
-    // final List<UpdateModel> models = [
-    //   UpdateModel(title: "Name", subTitle: user!.displayName!),
-    //   UpdateModel(title: "Email", subTitle: user.email!),
-    // ];
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -70,11 +71,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               }
 
               if (state.formsStatus == FormsStatus.success) {
-                debugPrint("CURRENT USER IS IMAGE: ${state.userModel.imageUrl}");
+                models = [
+                  UpdateModel(
+                    title: "Name",
+                    subTitle: state.userModel.username,
+                  ),
+                  UpdateModel(
+                    title: "Phone number",
+                    subTitle: state.userModel.password,
+                  ),
+                ];
+                debugPrint(
+                    "CURRENT USER IS IMAGE: ${state.userModel.imageUrl}");
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    state.userModel.imageUrl.isEmpty
+                    state.userModel.imageUrl.isNotEmpty
                         ? Center(
                             child: Container(
                               margin: EdgeInsets.only(
@@ -129,14 +141,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ),
                           ),
-                    // ...List.generate(
-                    //   models.length,
-                    //       (index) =>
-                    //       UpdateTextField(
-                    //         title: models[index].title,
-                    //         subTitle: models[index].subTitle,
-                    //       ),
-                    // ),
+                    BlocListener<AuthBloc, AuthState>(
+                      listener: (e, s) {
+                        if (s.status == FormsStatus.unauthenticated) {
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            RouteNames.login,
+                            (route) => false,
+                          );
+                        }
+                      },
+                      child: const SizedBox.shrink(),
+                    ),
+                    ...List.generate(
+                      models.length,
+                      (index) => UpdateTextField(
+                        title: models[index].title,
+                        subTitle: models[index].subTitle,
+                      ),
+                    ),
+                    const Spacer(),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          context.read<AuthBloc>().add(
+                                LogOutUserEvent(),
+                              );
+                        },
+                        borderRadius: BorderRadius.circular(
+                          20.r,
+                        ),
+                        child: Container(
+                          height: 50.h,
+                          width: 300.h,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              20.r,
+                            ),
+                            color: Colors.blue,
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Logout",
+                                  style: AppTextStyle.width600.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10.w,
+                                ),
+                                Icon(
+                                  Icons.logout,
+                                  size: 20.w,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 );
               }
