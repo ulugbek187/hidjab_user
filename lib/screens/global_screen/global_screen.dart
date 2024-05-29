@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hidjab_user/bloc/auth/auth_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_state.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
