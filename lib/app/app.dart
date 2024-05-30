@@ -1,15 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hidjab_user/bloc/auth/auth_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_event.dart';
+import 'package:hidjab_user/bloc/favourite/favourite_bloc.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
 import 'package:hidjab_user/bloc/product/product_bloc.dart';
 import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/data/repo/auth_repository.dart';
 import 'package:hidjab_user/data/repo/basket_repo.dart';
 import 'package:hidjab_user/data/repo/category_repo.dart';
+import 'package:hidjab_user/data/repo/favourite_repo.dart';
 import 'package:hidjab_user/data/repo/product_repo.dart';
 import 'package:hidjab_user/data/repo/user_repo.dart';
 import 'package:hidjab_user/screens/routes.dart';
@@ -36,6 +39,9 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider(
           create: (_) => ProductRepo(),
+        ),
+        RepositoryProvider(
+          create: (_) => FavouriteRepo(),
         ),
         RepositoryProvider(
           create: (_) => UserRepo(),
@@ -66,6 +72,15 @@ class App extends StatelessWidget {
             create: (context) => UserBloc(
               context.read<UserRepo>(),
             ),
+          ),
+          BlocProvider(
+            create: (context) => FavouriteBloc(
+              context.read<FavouriteRepo>(),
+            )..add(
+                ListenFavouritesEvent(
+                  FirebaseAuth.instance.currentUser!.uid,
+                ),
+              ),
           ),
           BlocProvider(
             create: (context) => BasketBloc(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hidjab_user/data/models/basket_model.dart';
 import 'package:hidjab_user/data/models/product_model.dart';
+import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import '../colors/app_colors.dart';
 
 SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
@@ -9,6 +11,26 @@ SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
   statusBarBrightness: Brightness.dark,
   statusBarIconBrightness: Brightness.dark,
 );
+
+void showSnackBar({required BuildContext context, required String message, Color? color}) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: color ?? Colors.blue,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(16),
+          topLeft: Radius.circular(16),
+        ),
+      ),
+      content: Text(
+        message,
+        textAlign: TextAlign.center,
+        style:
+            AppTextStyle.width600.copyWith(fontSize: 20.w, color: Colors.white),
+      ),
+    ),
+  );
+}
 
 currentCategory(String categoryName) {
   if (categoryName.toLowerCase() == 'gadgets') {

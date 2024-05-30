@@ -5,6 +5,7 @@ import '../colors/app_colors.dart';
 class AppConstants {
   static const String products = "books";
   static const String users = "users";
+  static const String favourites = "favourites";
   static const String basket = "basket";
   static const String categories = "categories";
 

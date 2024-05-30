@@ -4,10 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hidjab_user/bloc/basket/basket_bloc.dart';
 import 'package:hidjab_user/bloc/basket/basket_event.dart';
+import 'package:hidjab_user/bloc/favourite/favourite_bloc.dart';
 import 'package:hidjab_user/bloc/product/product_bloc.dart';
+import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/data/models/product_model.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
+import 'package:hidjab_user/utils/functions/utility_functions.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import '../../bloc/product/product_state.dart';
@@ -239,30 +242,68 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           SizedBox(
                             width: 10.w,
                           ),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              width: 40.w,
-                              height: 40.h,
-                              decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      width: 1,
-                                      color: Colors
-                                          .grey.shade500) // Change color here
-                                  ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SvgPicture.asset(
-                                  AppIcons.favourite,
-                                  colorFilter: const ColorFilter.mode(
-                                    AppColors.c1A72DD,
-                                    BlendMode.srcIn,
+                          BlocConsumer<FavouriteBloc, FavouriteState>(
+                            listener: (context, state) {
+                              if (state.statusText == 'success' &&
+                                  state.formsStatus == FormsStatus.success) {
+                                showSnackBar(
+                                  context: context,
+                                  message:
+                                      'PRODUCT ADDED SUCCESSFULLY TO FAVOURITE',
+                                );
+
+                                context.read<FavouriteBloc>().add(
+                                      ChangeFavouriteInitialStateEvent(),
+                                    );
+                              }
+                              if (state.formsStatus == FormsStatus.error) {
+                                showSnackBar(
+                                  context: context,
+                                  message:
+                                      "CAN'T ADDED PRODUCT TO FAVOURITE, BECAUSE: ${state.errorText}",
+                                  color: Colors.red,
+                                );
+                              }
+                            },
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  ProductModel pr =
+                                      widget.productModel.copyWith(
+                                    userId:
+                                        FirebaseAuth.instance.currentUser!.uid,
+                                  );
+
+                                  context.read<FavouriteBloc>().add(
+                                        AddToFavouritesEvent(
+                                          pr,
+                                        ),
+                                      );
+                                },
+                                child: Container(
+                                  width: 40.w,
+                                  height: 40.h,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.grey.shade500,
+                                      ) // Change color here
+                                      ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SvgPicture.asset(
+                                      AppIcons.favourite,
+                                      colorFilter: const ColorFilter.mode(
+                                        AppColors.c1A72DD,
+                                        BlendMode.srcIn,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
                           SizedBox(
                             height: 20.h,
@@ -279,7 +320,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             "Description",
                             style: AppTextStyle.width600,
                           ),
-                          SizedBox(height: 10.h,),
+                          SizedBox(
+                            height: 10.h,
+                          ),
                           Text(
                             widget.productModel.bookDescription,
                             style: AppTextStyle.width600
