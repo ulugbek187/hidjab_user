@@ -6,18 +6,41 @@ import '../response/network_response.dart';
 class FavouriteRepo {
   Future<NetworkResponse> addToFavourites(ProductModel productModel) async {
     try {
-      DocumentReference documentReference = await FirebaseFirestore.instance
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(AppConstants.favourites)
-          .add(productModel.toJson());
+          .where('user_id', isEqualTo: productModel.userId)
+          .get();
 
-      await FirebaseFirestore.instance
-          .collection(AppConstants.favourites)
-          .doc(documentReference.id)
-          .update({'doc_id': documentReference.id});
+      List<ProductModel> p = querySnapshot.docs
+          .map((e) => ProductModel.fromJson(e.data() as Map<String, dynamic>))
+          .toList();
 
-      return NetworkResponse(
-        data: 'success',
-      );
+      bool isExist = false;
+
+      for (var element in p) {
+        if (element.imageUrl == productModel.imageUrl) {
+          isExist = true;
+          break;
+        }
+      }
+      if (!isExist) {
+        DocumentReference documentReference = await FirebaseFirestore.instance
+            .collection(AppConstants.favourites)
+            .add(productModel.toJson());
+
+        await FirebaseFirestore.instance
+            .collection(AppConstants.favourites)
+            .doc(documentReference.id)
+            .update({'doc_id': documentReference.id});
+
+        return NetworkResponse(
+          data: 'success',
+        );
+      } else {
+        return NetworkResponse(
+          errorText: 'Product already exists!!!',
+        );
+      }
     } on FirebaseException catch (e) {
       return NetworkResponse(
         errorText: e.toString(),

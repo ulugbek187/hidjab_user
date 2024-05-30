@@ -255,6 +255,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 context.read<FavouriteBloc>().add(
                                       ChangeFavouriteInitialStateEvent(),
                                     );
+                                debugPrint(
+                                  state.formsStatus.toString(),
+                                );
                               }
                               if (state.formsStatus == FormsStatus.error) {
                                 showSnackBar(
@@ -263,7 +266,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       "CAN'T ADDED PRODUCT TO FAVOURITE, BECAUSE: ${state.errorText}",
                                   color: Colors.red,
                                 );
+                                context.read<FavouriteBloc>().add(
+                                  ChangeFavouriteInitialStateEvent(),
+                                );
+                                debugPrint(
+                                  state.formsStatus.toString(),
+                                );
                               }
+                              debugPrint(
+                                state.formsStatus.toString(),
+                              );
                             },
                             builder: (context, state) {
                               return InkWell(
