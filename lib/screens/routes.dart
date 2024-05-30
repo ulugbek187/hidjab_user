@@ -46,7 +46,7 @@ class AppRoutes {
         );
       case RouteNames.favourite:
         return navigate(
-          const FavouriteScreen( ),
+          const FavouriteScreen(),
         );
       case RouteNames.profile:
         return navigate(

@@ -57,15 +57,15 @@ class ProductModel {
   }
 
   static ProductModel initial() => ProductModel(
-    price: 0,
-    imageUrl: '',
-    productName: '',
-    docId: '',
-    bookDescription: '',
-    categoryId: '',
-    rate: '',
-    userId: '',
-  );
+        price: 0,
+        imageUrl: '',
+        productName: '',
+        docId: '',
+        bookDescription: '',
+        categoryId: '',
+        rate: '',
+        userId: '',
+      );
 
   ProductModel copyWith({
     String? docId,

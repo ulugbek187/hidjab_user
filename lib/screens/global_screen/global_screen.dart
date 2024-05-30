@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +9,7 @@ import 'package:hidjab_user/bloc/nabi/nabi_event.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_state.dart';
 import 'package:hidjab_user/bloc/product/product_event.dart';
 import 'package:hidjab_user/bloc/product/product_state.dart';
+import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/screens/detail_screen/detail_screen.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
@@ -32,11 +34,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    Future.microtask(
-      () => context.read<ProductBloc>().add(
+    Future.microtask(() {
+      context.read<ProductBloc>().add(
             GetProductsEvent(),
-          ),
-    );
+          );
+      context.read<UserBloc>().add(
+            GetUserEvent(
+              userId: FirebaseAuth.instance.currentUser!.uid,
+            ),
+          );
+    });
     Future.microtask(
       () => context.read<NabiBloc>().add(
             GetCategoryEvent(

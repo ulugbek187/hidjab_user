@@ -83,6 +83,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ];
                 debugPrint(
                     "CURRENT USER IS IMAGE: ${state.userModel.imageUrl}");
+                debugPrint(state.userModel.username);
+                debugPrint(state.userModel.phoneNumber);
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

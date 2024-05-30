@@ -33,7 +33,7 @@ class FavouriteState extends Equatable {
   static FavouriteState initial() => FavouriteState(
         formsStatus: FormsStatus.pure,
         statusText: '',
-        allFavourites: [],
+        allFavourites: const [],
         errorText: '',
         productModel: ProductModel.initial(),
       );

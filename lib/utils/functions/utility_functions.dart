@@ -12,7 +12,8 @@ SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(
   statusBarIconBrightness: Brightness.dark,
 );
 
-void showSnackBar({required BuildContext context, required String message, Color? color}) {
+void showSnackBar(
+    {required BuildContext context, required String message, Color? color}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: color ?? Colors.blue,

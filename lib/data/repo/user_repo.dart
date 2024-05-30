@@ -14,9 +14,11 @@ class UserRepo {
           .collection(AppConstants.users)
           .doc(documentReference.id)
           .update(
-        {"userId": documentReference.id},
+        {
+          "userId": documentReference.id,
+        },
       );
-
+//"authUid": FirebaseAuth.instance.currentUser!.uid,
       return NetworkResponse(data: documentReference);
     } on FirebaseException catch (e) {
       return NetworkResponse(

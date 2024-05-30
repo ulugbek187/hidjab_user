@@ -31,8 +31,25 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  // bool isSelect = context.read<FavouriteBloc>().state.allFavourites.where(e));
+
   @override
   Widget build(BuildContext context) {
+    bool isExist() {
+      bool i = false;
+
+      for (var element in context.read<FavouriteBloc>().state.allFavourites) {
+        if (element.imageUrl == widget.productModel.imageUrl) {
+          i = true;
+          break;
+        }
+      }
+
+      return i;
+    }
+
+    setState(() {});
+
     // List<String> images = splitImages(widget.productModel.images);
     return Scaffold(
       appBar: AppBar(
@@ -267,8 +284,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   color: Colors.red,
                                 );
                                 context.read<FavouriteBloc>().add(
-                                  ChangeFavouriteInitialStateEvent(),
-                                );
+                                      ChangeFavouriteInitialStateEvent(),
+                                    );
                                 debugPrint(
                                   state.formsStatus.toString(),
                                 );
@@ -304,15 +321,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                       ) // Change color here
                                       ),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SvgPicture.asset(
-                                      AppIcons.favourite,
-                                      colorFilter: const ColorFilter.mode(
-                                        AppColors.c1A72DD,
-                                        BlendMode.srcIn,
-                                      ),
-                                    ),
-                                  ),
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: isExist()
+                                          ? const Icon(
+                                              Icons.favorite,
+                                              color: Colors.red,
+                                            )
+                                          : const Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.black,
+                                            )),
                                 ),
                               );
                             },

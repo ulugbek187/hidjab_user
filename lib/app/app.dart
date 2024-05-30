@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hidjab_user/bloc/auth/auth_bloc.dart';
+import 'package:hidjab_user/bloc/basket/basket_event.dart';
 import 'package:hidjab_user/bloc/category/category_bloc.dart';
 import 'package:hidjab_user/bloc/category/category_event.dart';
 import 'package:hidjab_user/bloc/favourite/favourite_bloc.dart';
@@ -85,7 +86,11 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => BasketBloc(
               context.read<BasketRepo>(),
-            ),
+            )..add(
+                ListenBasketEvent(
+                  userId: FirebaseAuth.instance.currentUser!.uid,
+                ),
+              ),
           ),
           BlocProvider(
             create: (context) => AuthBloc(
