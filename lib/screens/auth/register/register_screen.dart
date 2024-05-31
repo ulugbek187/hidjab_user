@@ -44,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
-        body: BlocBuilder<AuthBloc, AuthState>(
+        body: BlocConsumer<AuthBloc, AuthState>(
           builder: (context, state) {
             return SingleChildScrollView(
               child: Padding(
@@ -137,41 +137,42 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: EdgeInsets.only(left: 25.w, right: 25.w),
                       child: GlobalTextButton(
-                          isLoading: state.status == FormsStatus.loading,
-                          onTap: () {
-                            final isValidateOne =
-                                _formKeyOne.currentState!.validate();
-                            final isValidateTwo =
-                                _formKeyTwo.currentState!.validate();
-                            final isValidateThree =
-                                _formKeyThree.currentState!.validate();
-                            if (isValidateOne &&
-                                isValidateTwo &&
-                                isValidateThree) {
-                              String cleanedPhone = phoneController.text
-                                  .replaceAll(RegExp(r'\D+'), '');
+                        isLoading: state.status == FormsStatus.loading,
+                        onTap: () {
+                          final isValidateOne =
+                              _formKeyOne.currentState!.validate();
+                          final isValidateTwo =
+                              _formKeyTwo.currentState!.validate();
+                          final isValidateThree =
+                              _formKeyThree.currentState!.validate();
+                          if (isValidateOne &&
+                              isValidateTwo &&
+                              isValidateThree) {
+                            String cleanedPhone = phoneController.text
+                                .replaceAll(RegExp(r'\D+'), '');
 
-                              UserModel user = UserModel(
-                                username: nameController.text,
-                                phoneNumber: cleanedPhone,
-                                password: passwordController.text,
-                                userId: '',
-                                authUid: "",
-                                imageUrl: '',
-                              );
-                              context.read<AuthBloc>().add(
-                                    RegisterUserEvent(
-                                      userModel: user,
-                                    ),
-                                  );
-                              context.read<UserBloc>().add(
-                                    AddUserEvent(
-                                      userModel: user,
-                                    ),
-                                  );
-                            }
-                          },
-                          text: "register"),
+                            UserModel user = UserModel(
+                              username: nameController.text,
+                              phoneNumber: cleanedPhone,
+                              password: passwordController.text,
+                              userId: '',
+                              authUid: "",
+                              imageUrl: '',
+                            );
+                            context.read<AuthBloc>().add(
+                                  RegisterUserEvent(
+                                    userModel: user,
+                                  ),
+                                );
+                            // context.read<UserBloc>().add(
+                            //       AddUserEvent(
+                            //         userModel: user,
+                            //       ),
+                            //     );
+                          }
+                        },
+                        text: "register",
+                      ),
                     ),
                     SizedBox(height: 15.h),
                     Padding(
@@ -231,6 +232,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             );
+          },
+          listener: (BuildContext context, AuthState state) {
+            if (state.status == FormsStatus.authenticated &&
+                state.statusMessage == "registered") {
+              context.read<UserBloc>().add(
+                    AddUserEvent(
+                      userModel: state.userModel,
+                    ),
+                  );
+
+              debugPrint("IN UI USER ADDED SUCCESSFULLY!!!!!");
+            }
           },
         ),
       ),

@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   UpdateModel(
                     title: "Phone number",
-                    subTitle: state.userModel.password,
+                    subTitle: "+${state.userModel.phoneNumber}",
                   ),
                 ];
                 debugPrint(
