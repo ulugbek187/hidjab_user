@@ -192,7 +192,7 @@ class _BasketScreenState extends State<BasketScreen> {
                                   ],
                                 ),
                               );
-                            },
+                            }, isVisible: countOfProductsList[index] !=1,
                           ),
                         ),
                         SizedBox(

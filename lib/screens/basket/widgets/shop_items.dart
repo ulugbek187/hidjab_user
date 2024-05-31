@@ -16,6 +16,7 @@ class ShopContainer extends StatelessWidget {
     required this.minusOnTap,
     required this.plusOnTap,
     required this.onTap,
+    required this.isVisible,
   });
 
   final String imageUrl;
@@ -26,6 +27,7 @@ class ShopContainer extends StatelessWidget {
   final VoidCallback minusOnTap;
   final VoidCallback plusOnTap;
   final VoidCallback onTap;
+  final bool isVisible;
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +127,16 @@ class ShopContainer extends StatelessWidget {
                 child: Row(
                   children: [
                     IconButton(
-                      onPressed: minusOnTap,
-                      icon: SvgPicture.asset(AppIcons.minus),
+                      onPressed: isVisible ? minusOnTap : () {},
+                      icon: isVisible
+                          ? SvgPicture.asset(AppIcons.minus)
+                          : SvgPicture.asset(
+                              AppIcons.minus,
+                              colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.1),
+                                BlendMode.srcIn,
+                              ),
+                            ),
                     ),
                     Container(height: 40.h, width: 1.w, color: Colors.grey),
                     SizedBox(
@@ -142,9 +152,10 @@ class ShopContainer extends StatelessWidget {
                     ),
                     Container(height: 40.h, width: 1.w, color: Colors.grey),
                     IconButton(
-                      onPressed: plusOnTap,
-                      icon: SvgPicture.asset(AppIcons.plus),
-                    ),
+                        onPressed: plusOnTap,
+                        icon: SvgPicture.asset(
+                          AppIcons.plus,
+                        )),
                   ],
                 ),
               ),
