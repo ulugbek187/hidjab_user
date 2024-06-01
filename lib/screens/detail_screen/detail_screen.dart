@@ -96,51 +96,51 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    Positioned(
-                      bottom: 10.h,
-                      left: 250.w,
-                      child: Container(
-                        height: 30.w,
-                        width: 110.w,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 8.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.black.withOpacity(
-                            .25,
-                          ),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                              style: IconButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                AppIcons.arrowBack,
-                                colorFilter: const ColorFilter.mode(
-                                    Colors.white, BlendMode.srcIn),
-                              ),
-                            ),
-                            IconButton(
-                              style: IconButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                              ),
-                              onPressed: () {},
-                              icon: SvgPicture.asset(
-                                AppIcons.arrowNext,
-                                colorFilter: const ColorFilter.mode(
-                                    Colors.white, BlendMode.srcIn),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Positioned(
+                    //   bottom: 10.h,
+                    //   left: 250.w,
+                    //   child: Container(
+                    //     height: 30.w,
+                    //     width: 110.w,
+                    //     padding: EdgeInsets.symmetric(
+                    //       horizontal: 8.w,
+                    //       vertical: 8.h,
+                    //     ),
+                    //     decoration: BoxDecoration(
+                    //       color: AppColors.black.withOpacity(
+                    //         .25,
+                    //       ),
+                    //       borderRadius: BorderRadius.circular(30),
+                    //     ),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         IconButton(
+                    //           style: IconButton.styleFrom(
+                    //             padding: EdgeInsets.zero,
+                    //           ),
+                    //           onPressed: () {},
+                    //           icon: SvgPicture.asset(
+                    //             AppIcons.arrowBack,
+                    //             colorFilter: const ColorFilter.mode(
+                    //                 Colors.white, BlendMode.srcIn),
+                    //           ),
+                    //         ),
+                    //         IconButton(
+                    //           style: IconButton.styleFrom(
+                    //             padding: EdgeInsets.zero,
+                    //           ),
+                    //           onPressed: () {},
+                    //           icon: SvgPicture.asset(
+                    //             AppIcons.arrowNext,
+                    //             colorFilter: const ColorFilter.mode(
+                    //                 Colors.white, BlendMode.srcIn),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 Padding(
