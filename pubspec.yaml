@@ -32,6 +32,7 @@ dependencies:
   url_launcher: ^6.2.6
   shared_preferences: ^2.2.2
   mask_text_input_formatter: ^2.9.0
+  easy_localization: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,7 @@ flutter:
     - assets/icon/
     - assets/fonts/
     - assets/lotie/
+    - assets/translations/
   fonts:
     - family: Inter
       fonts:

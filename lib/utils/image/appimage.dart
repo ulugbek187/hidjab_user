@@ -13,6 +13,8 @@ class AppImages {
   static const String recomended = "assets/image/recomended.png";
   static const String brandMafia = "assets/image/brand_mafia.png";
   static const String google = "assets/image/google.png";
+  static const String rusFlag = "assets/image/rus_flag.png";
+  static const String uzbFlag = "assets/image/uzb_flag.png";
 
   static const String basket = "assets/lotie/lottie.json";
   static const String eComerse = "assets/lotie/e_comerse.json";

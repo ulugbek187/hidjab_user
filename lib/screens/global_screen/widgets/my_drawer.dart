@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hidjab_user/screens/global_screen/widgets/lenguege/languages_screen.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';
@@ -149,7 +150,14 @@ class MyDrawer extends StatelessWidget {
                 ),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingLanguagesScreen(),
+                ),
+              );
+            },
           ),
           ListTile(
             title: Row(
