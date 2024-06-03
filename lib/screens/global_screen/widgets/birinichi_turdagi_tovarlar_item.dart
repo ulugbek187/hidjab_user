@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hidjab_user/screens/global_widgets/image_item.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
@@ -38,17 +39,7 @@ class OneMethodTovarITem extends StatelessWidget {
             SizedBox(height: 8.h),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CachedNetworkImage(
-                imageUrl: image,
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                  color: Colors.red,
-                ),
-                width: 130.w,
-                height: 140.h,
-              ),
+              child: ImageItem(imageUrl: image, width: 130.w, height: 140.h),
             ),
             SizedBox(height: 5.h),
             Text(

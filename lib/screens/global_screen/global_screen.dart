@@ -15,6 +15,7 @@ import 'package:hidjab_user/screens/detail_screen/detail_screen.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_drawer.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_text_field.dart';
+import 'package:hidjab_user/screens/global_widgets/simmer_item.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
@@ -261,6 +262,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   BlocBuilder<NabiBloc, NabiState>(
                                       builder: (context, state) {
+                                    if (state.formStatus ==
+                                        FormsStatus.loading) {
+                                      return ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                          itemCount: 5,
+                                          itemBuilder: (context, index) {
+                                            return ShimmerItem(
+                                              width: 150.w,
+                                              height: 200.h,
+                                            );
+                                          });
+                                    }
                                     if (state.formStatus ==
                                         FormsStatus.success) {
                                       return SizedBox(
