@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^2.2.2
   mask_text_input_formatter: ^2.9.0
   easy_localization: ^3.0.6
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -264,7 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     if (state.formStatus ==
                                         FormsStatus.success) {
                                       return SizedBox(
-                                        height: 240.h,
+                                        height: 245.h,
                                         child: ListView.builder(
                                             scrollDirection: Axis.horizontal,
                                             itemCount: state.products[i].length,

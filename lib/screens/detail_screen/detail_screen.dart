@@ -6,6 +6,7 @@ import 'package:hidjab_user/bloc/basket/basket_bloc.dart';
 import 'package:hidjab_user/bloc/basket/basket_event.dart';
 import 'package:hidjab_user/bloc/favourite/favourite_bloc.dart';
 import 'package:hidjab_user/bloc/product/product_bloc.dart';
+import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/data/models/product_model.dart';
 import 'package:hidjab_user/screens/routes.dart';
@@ -215,7 +216,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 description: '',
                                 rate: 2,
                                 modelName: '',
-                                userId: FirebaseAuth.instance.currentUser!.uid,
+                                userId: context.read<UserBloc>().state.userModel.authUid,
+                                // userId: FirebaseAuth.instance.currentUser!.uid,
                               );
                               context.read<BasketBloc>().add(
                                     AddToBasketEvent(

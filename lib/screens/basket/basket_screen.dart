@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/data/models/basket_model.dart';
 import 'package:hidjab_user/screens/basket/widgets/check.dart';
 import 'package:hidjab_user/screens/basket/widgets/shop_items.dart';
+import 'package:hidjab_user/screens/global_widgets/simmer_item.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
 import 'package:hidjab_user/utils/functions/utility_functions.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
@@ -16,6 +18,7 @@ import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BasketScreen extends StatefulWidget {
   const BasketScreen({super.key});
@@ -33,7 +36,11 @@ class _BasketScreenState extends State<BasketScreen> {
               userId: FirebaseAuth.instance.currentUser!.uid,
             ),
           ),
-    );
+    ).then((v) {
+      debugPrint(
+        'CURRENT USER: ${FirebaseAuth.instance.currentUser!.uid}',
+      );
+    });
     super.initState();
   }
 
@@ -73,8 +80,9 @@ class _BasketScreenState extends State<BasketScreen> {
             );
           }
           if (state.formStatus == FormsStatus.loading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return ShimmerItem(
+              width: width,
+              height: height,
             );
           }
           if (state.formStatus == FormsStatus.success) {
@@ -93,106 +101,123 @@ class _BasketScreenState extends State<BasketScreen> {
                         ),
                         ...List.generate(
                           state.baskets.length,
-                          (index) => ShopContainer(
-                            imageUrl: state.baskets[index].imageUrl,
-                            productName: state.baskets[index].productName,
-                            description: state.baskets[index].description,
-                            price: state.baskets[index].allPrice,
-                            count: countOfProductsList[index],
-                            plusOnTap: () {
-                              countOfProductsList[index]++;
-                              BasketModel basketModel =
-                                  state.baskets[index].copyWith(
-                                countOfProducts: countOfProductsList[index],
-                                allPrice: countOfProductsList[index] *
-                                    state.baskets[index].price,
-                              );
-                              context.read<BasketBloc>().add(
-                                    UpdateBasketEvent(
-                                      basketModel: basketModel,
-                                    ),
-                                  );
-                            },
-                            minusOnTap: () {
-                              countOfProductsList[index]--;
-                              if (countOfProductsList[index] == 0) {
-                                isDeleting = true;
+                          (index) => BlocBuilder<BasketBloc, BasketState>(
+                            builder: (context, state) {
+                              if (state.formStatus == FormsStatus.loading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
                               }
-                              if (isDeleting) {
-                                context.read<BasketBloc>().add(
-                                      DeleteBasketEvent(
-                                        uuid: state.baskets[index].uuid,
+                              if (state.formStatus == FormsStatus.success) {
+                                return ShopContainer(
+                                  imageUrl: state.baskets[index].imageUrl,
+                                  productName: state.baskets[index].productName,
+                                  description: state.baskets[index].description,
+                                  price: state.baskets[index].allPrice,
+                                  count: countOfProductsList[index],
+                                  plusOnTap: () {
+                                    countOfProductsList[index]++;
+                                    BasketModel basketModel =
+                                        state.baskets[index].copyWith(
+                                      countOfProducts:
+                                          countOfProductsList[index],
+                                      allPrice: countOfProductsList[index] *
+                                          state.baskets[index].price,
+                                    );
+                                    context.read<BasketBloc>().add(
+                                          UpdateBasketEvent(
+                                            basketModel: basketModel,
+                                          ),
+                                        );
+                                  },
+                                  minusOnTap: () {
+                                    countOfProductsList[index]--;
+                                    if (countOfProductsList[index] == 0) {
+                                      isDeleting = true;
+                                    }
+                                    if (isDeleting) {
+                                      context.read<BasketBloc>().add(
+                                            DeleteBasketEvent(
+                                              uuid: state.baskets[index].uuid,
+                                            ),
+                                          );
+                                      isDeleting = false;
+                                    }
+                                    BasketModel basketModel =
+                                        state.baskets[index].copyWith(
+                                      countOfProducts:
+                                          countOfProductsList[index],
+                                      allPrice: countOfProductsList[index] *
+                                          state.baskets[index].price,
+                                    );
+                                    context.read<BasketBloc>().add(
+                                          UpdateBasketEvent(
+                                            basketModel: basketModel,
+                                          ),
+                                        );
+                                  },
+                                  onTap: () {
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: Text(
+                                          'Warning!!!',
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontSize: 20.w,
+                                          ),
+                                        ),
+                                        content: SizedBox(
+                                          height: 75.h,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Ushbu Mahsulotni aniq ochirib tawlamoqchimisiz?",
+                                                style: AppTextStyle.width600,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'Cancel'),
+                                            child: Text(
+                                              'Cancel',
+                                              style: TextStyle(
+                                                fontSize: 14.w,
+                                              ),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              context.read<BasketBloc>().add(
+                                                    DeleteBasketEvent(
+                                                      uuid: state
+                                                          .baskets[index].uuid,
+                                                    ),
+                                                  );
+                                              Navigator.pop(context, 'OK');
+                                            },
+                                            child: Text(
+                                              'OK',
+                                              style: TextStyle(
+                                                fontSize: 14.w,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     );
-                                isDeleting = false;
+                                  },
+                                  isVisible: countOfProductsList[index] != 1,
+                                );
                               }
-                              BasketModel basketModel =
-                                  state.baskets[index].copyWith(
-                                countOfProducts: countOfProductsList[index],
-                                allPrice: countOfProductsList[index] *
-                                    state.baskets[index].price,
-                              );
-                              context.read<BasketBloc>().add(
-                                    UpdateBasketEvent(
-                                      basketModel: basketModel,
-                                    ),
-                                  );
+                              return const SizedBox();
                             },
-                            onTap: () {
-                              showDialog<String>(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: Text(
-                                    'Warning!!!',
-                                    style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 20.w,
-                                    ),
-                                  ),
-                                  content: SizedBox(
-                                    height: 50.h,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Ushbu Mahsulotni aniq ochirib tawlamoqchimisiz?",
-                                          style: AppTextStyle.width600,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'Cancel'),
-                                      child: Text(
-                                        'Cancel',
-                                        style: TextStyle(
-                                          fontSize: 14.w,
-                                        ),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        context.read<BasketBloc>().add(
-                                              DeleteBasketEvent(
-                                                uuid: state.baskets[index].uuid,
-                                              ),
-                                            );
-                                        Navigator.pop(context, 'OK');
-                                      },
-                                      child: Text(
-                                        'OK',
-                                        style: TextStyle(
-                                          fontSize: 14.w,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }, isVisible: countOfProductsList[index] !=1,
                           ),
                         ),
                         SizedBox(
@@ -281,3 +306,21 @@ class _BasketScreenState extends State<BasketScreen> {
     );
   }
 }
+
+// List<int> countOfProductsList = [];
+//           if (state.baskets.isNotEmpty) {
+//             for (var element in state.baskets) {
+//               countOfProductsList.add(element.countOfProducts);
+//             }
+//           } else {}
+//           if (state.baskets.isEmpty) {
+//             return Center(
+//               child: Lottie.asset(AppImages.basket),
+//             );
+//           }
+//           if (state.formStatus == FormsStatus.loading) {
+//             return const Center(
+//               child: CircularProgressIndicator(),
+//             );
+//           }
+//           if (state.formStatus == FormsStatus.success) {
