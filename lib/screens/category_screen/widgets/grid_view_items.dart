@@ -62,6 +62,7 @@ class GridViewContainer extends StatelessWidget {
               children: [
                 SvgPicture.asset(AppIcons.star),
                 SizedBox(
+
                   width: 10.w,
                 ),
                 Text(rate,
