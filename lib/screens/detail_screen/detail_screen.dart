@@ -80,7 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     Container(
                       margin: EdgeInsets.all(12.w),
                       width: double.infinity,
-                      height: 405.h,
+                      height: 450.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.zero,
                         color: AppColors.white,
@@ -91,7 +91,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       child: Image.network(
                         widget.productModel.imageUrl,
-                        height: 305.h,
+                        height: 450.h,
                         width: width,
                         fit: BoxFit.fill,
                       ),
@@ -263,11 +263,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             listener: (context, state) {
                               if (state.statusText == 'success' &&
                                   state.formsStatus == FormsStatus.success) {
-                                showSnackBar(
-                                  context: context,
-                                  message:
-                                      'PRODUCT ADDED SUCCESSFULLY TO FAVOURITE',
-                                );
+                                // showSnackBar(
+                                //   context: context,
+                                //   message:
+                                //       'PRODUCT ADDED SUCCESSFULLY TO FAVOURITE',
+                                // );
 
                                 context.read<FavouriteBloc>().add(
                                       ChangeFavouriteInitialStateEvent(),

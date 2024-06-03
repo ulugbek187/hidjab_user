@@ -37,114 +37,100 @@ class App extends StatelessWidget {
       navigatorKey,
     );
 
-    return EasyLocalization(
-      supportedLocales: const [
-        Locale("uz", "UZ"),
-        Locale("ru", "RU"),
-        Locale("en", "US"),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (_) => ProductRepo(),
+        ),
+        RepositoryProvider(
+          create: (_) => FavouriteRepo(),
+        ),
+        RepositoryProvider(
+          create: (_) => UserRepo(),
+        ),
+        RepositoryProvider(
+          create: (_) => AuthRepository(),
+        ),
+        RepositoryProvider(
+          create: (_) => CategoryRepo(),
+        ),
+        RepositoryProvider(
+          create: (_) => BasketRepo(),
+        ),
       ],
-      startLocale: const Locale('ru', 'RU'),
-      fallbackLocale: const Locale(
-        "ru",
-        "RU",
-      ),
-      path: "assets/translations",
-      child:
-      MultiRepositoryProvider(
+      child: MultiBlocProvider(
         providers: [
-          RepositoryProvider(
-            create: (_) => ProductRepo(),
+          BlocProvider(
+            create: (context) => ProductBloc(
+              context.read<ProductRepo>(),
+            ),
           ),
-          RepositoryProvider(
-            create: (_) => FavouriteRepo(),
+          BlocProvider(
+            create: (context) => NabiBloc(
+              context.read<ProductRepo>(),
+            ),
           ),
-          RepositoryProvider(
-            create: (_) => UserRepo(),
+          BlocProvider(
+            create: (context) => UserBloc(
+              context.read<UserRepo>(),
+            ),
           ),
-          RepositoryProvider(
-            create: (_) => AuthRepository(),
+          BlocProvider(
+            create: (context) => FavouriteBloc(
+              context.read<FavouriteRepo>(),
+            )..add(
+                ListenFavouritesEvent(
+                  FirebaseAuth.instance.currentUser!.uid,
+                ),
+              ),
           ),
-          RepositoryProvider(
-            create: (_) => CategoryRepo(),
+          BlocProvider(
+            create: (context) => BasketBloc(
+              context.read<BasketRepo>(),
+            )..add(
+                ListenBasketEvent(
+                  userId: FirebaseAuth.instance.currentUser!.uid,
+                ),
+              ),
           ),
-          RepositoryProvider(
-            create: (_) => BasketRepo(),
+          BlocProvider(
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
+              userRepo: context.read<UserRepo>(),
+            )..add(CheckAuthenticationEvent()),
+          ),
+          BlocProvider(
+            create: (context) => CategoryBloc(
+              context.read<CategoryRepo>(),
+            )..add(
+                ListenAllCategoriesEvent(),
+              ),
           ),
         ],
-        child: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => ProductBloc(
-                context.read<ProductRepo>(),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => NabiBloc(
-                context.read<ProductRepo>(),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => UserBloc(
-                context.read<UserRepo>(),
-              ),
-            ),
-            BlocProvider(
-              create: (context) => FavouriteBloc(
-                context.read<FavouriteRepo>(),
-              )..add(
-                  ListenFavouritesEvent(
-                    FirebaseAuth.instance.currentUser!.uid,
-                  ),
-                ),
-            ),
-            BlocProvider(
-              create: (context) => BasketBloc(
-                context.read<BasketRepo>(),
-              )..add(
-                  ListenBasketEvent(
-                    userId: FirebaseAuth.instance.currentUser!.uid,
-                  ),
-                ),
-            ),
-            BlocProvider(
-              create: (context) => AuthBloc(
-                authRepository: context.read<AuthRepository>(),
-                userRepo: context.read<UserRepo>(),
-              )..add(CheckAuthenticationEvent()),
-            ),
-            BlocProvider(
-              create: (context) => CategoryBloc(
-                context.read<CategoryRepo>(),
-              )..add(
-                  ListenAllCategoriesEvent(),
-                ),
-            ),
-          ],
-          child: ScreenUtilInit(
-            designSize: const Size(360, 812),
-            builder: (context, child) {
-              ScreenUtil.init(context);
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(useMaterial3: false),
-                home: child,
-              );
-            },
-            child: MaterialApp(
+        child: ScreenUtilInit(
+          designSize: const Size(360, 812),
+          builder: (context, child) {
+            ScreenUtil.init(context);
+            return MaterialApp(
               debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                appBarTheme: const AppBarTheme(
-                  backgroundColor: AppColors.white,
-                ),
-                scaffoldBackgroundColor: AppColors.white,
-                bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-                  backgroundColor: Colors.white,
-                ),
+              theme: ThemeData(useMaterial3: false),
+              home: child,
+            );
+          },
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                backgroundColor: AppColors.white,
               ),
-              initialRoute: RouteNames.splashScreen,
-              navigatorKey: navigatorKey,
-              onGenerateRoute: AppRoutes.generateRoute,
+              scaffoldBackgroundColor: AppColors.white,
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                backgroundColor: Colors.white,
+              ),
             ),
+            initialRoute: RouteNames.splashScreen,
+            navigatorKey: navigatorKey,
+            onGenerateRoute: AppRoutes.generateRoute,
           ),
         ),
       ),

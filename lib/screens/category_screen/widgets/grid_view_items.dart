@@ -54,7 +54,7 @@ class GridViewContainer extends StatelessWidget {
               style: AppTextStyle.width400,
             ),
             Text(
-              "\$ $price",
+              "$price Сум",
               style: AppTextStyle.width500.copyWith(color: AppColors.black),
             ),
             Row(
@@ -72,22 +72,7 @@ class GridViewContainer extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(AppIcons.dot),
-                SizedBox(
-                  width: 5.w,
-                ),
-                Text(
-                  "$order Orders",
-                  style: AppTextStyle.width400.copyWith(
-                    color: Colors.grey,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
-            )
+
           ],
         ),
       ),
