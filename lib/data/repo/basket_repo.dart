@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hidjab_user/data/response/network_response.dart';
 import 'package:hidjab_user/utils/constans/app_constans.dart';
 
@@ -75,6 +77,9 @@ class BasketRepo {
 
   Future<NetworkResponse> updateCard(BasketModel basketModel) async {
     try {
+      debugPrint(
+        "CURRENT PRODUCT OF UUID: ${basketModel.uuid}",
+      );
       await FirebaseFirestore.instance
           .collection(
             AppConstants.basket,
@@ -93,11 +98,11 @@ class BasketRepo {
     }
   }
 
-  Future<NetworkResponse> getBaskets(String userId) async {
+  Future<NetworkResponse> getBaskets() async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection(AppConstants.basket)
-          .where('userId', isEqualTo: userId)
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
 
       List<BasketModel> baskets = querySnapshot.docs
@@ -137,10 +142,10 @@ class BasketRepo {
     }
   }
 
-  Stream<List<BasketModel>> getAllBasket(String userId) =>
+  Stream<List<BasketModel>> listenAllBasket() =>
       FirebaseFirestore.instance
           .collection(AppConstants.basket)
-          .where('userId', isEqualTo: userId)
+          .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .snapshots()
           .map(
             (event) => event.docs

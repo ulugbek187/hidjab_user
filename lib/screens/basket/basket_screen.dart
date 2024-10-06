@@ -30,9 +30,7 @@ class _BasketScreenState extends State<BasketScreen> {
   void initState() {
     Future.microtask(
       () => context.read<BasketBloc>().add(
-            ListenBasketEvent(
-              userId: FirebaseAuth.instance.currentUser!.uid,
-            ),
+            GetBasketEvent(),
           ),
     ).then((v) {
       debugPrint(
@@ -67,11 +65,6 @@ class _BasketScreenState extends State<BasketScreen> {
       body: BlocBuilder<BasketBloc, BasketState>(
         builder: (context, state) {
           List<int> countOfProductsList = [];
-          if (state.baskets.isNotEmpty) {
-            for (var element in state.baskets) {
-              countOfProductsList.add(element.countOfProducts);
-            }
-          } else {}
           if (state.baskets.isEmpty) {
             return Center(
               child: Lottie.asset(AppImages.basket),
@@ -84,6 +77,11 @@ class _BasketScreenState extends State<BasketScreen> {
             );
           }
           if (state.formStatus == FormsStatus.success) {
+            if (state.baskets.isNotEmpty) {
+              for (var element in state.baskets) {
+                countOfProductsList.add(element.countOfProducts);
+              }
+            }
             return Column(
               children: [
                 Expanded(

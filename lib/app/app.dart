@@ -89,8 +89,7 @@ class App extends StatelessWidget {
               context.read<BasketRepo>(),
             )..add(
                 ListenBasketEvent(
-                  userId: FirebaseAuth.instance.currentUser!.uid,
-                ),
+                  ),
               ),
           ),
           BlocProvider(

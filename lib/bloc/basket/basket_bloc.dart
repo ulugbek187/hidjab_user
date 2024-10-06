@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hidjab_user/bloc/basket/basket_event.dart';
 import 'package:hidjab_user/bloc/basket/basket_state.dart';
@@ -49,12 +50,13 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
         formStatus: FormsStatus.loading,
       ),
     );
-    NetworkResponse networkResponse = await basketRepo.getBaskets(
-      event.userId,
-    );
+    NetworkResponse networkResponse = await basketRepo.getBaskets();
 
     if (networkResponse.errorText.isEmpty) {
       List<BasketModel> baskets = networkResponse.data;
+      debugPrint(
+        "CURRENT BASKETS OF LENGTH ON GET BASKET BLOC EVENT: ${baskets.length}",
+      );
       emit(
         state.copyWith(
           formStatus: FormsStatus.success,
@@ -115,10 +117,15 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
   }
 
   Future<void> _listenAllBaskets(
-      ListenBasketEvent event, Emitter<BasketState> emit) async {
+    ListenBasketEvent event,
+    Emitter<BasketState> emit,
+  ) async {
     try {
-      await for (final baskets in basketRepo.getAllBasket(event.userId)) {
+      await for (final baskets in basketRepo.listenAllBasket()) {
         if (!emit.isDone) {
+          debugPrint(
+            "CURRENT BASKET OF LENGTH ON BASKET BLOC: ${baskets.length}",
+          );
           emit(
             state.copyWith(
               formStatus: FormsStatus.success,
