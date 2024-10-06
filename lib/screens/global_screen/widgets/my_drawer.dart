@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/lenguege/languages_screen.dart';
-import 'package:hidjab_user/screens/profile_screen/profile_screen.dart';
-import 'package:hidjab_user/screens/profile_screen/widgets/update_text_field.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';

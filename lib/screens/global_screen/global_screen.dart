@@ -7,11 +7,13 @@ import 'package:hidjab_user/bloc/category/category_state.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_bloc.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_event.dart';
 import 'package:hidjab_user/bloc/nabi/nabi_state.dart';
+import 'package:hidjab_user/bloc/product/product_bloc.dart';
 import 'package:hidjab_user/bloc/product/product_event.dart';
 import 'package:hidjab_user/bloc/product/product_state.dart';
 import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
 import 'package:hidjab_user/screens/detail_screen/detail_screen.dart';
+import 'package:hidjab_user/screens/global_screen/widgets/birinichi_turdagi_tovarlar_item.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_drawer.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_text_field.dart';
@@ -22,8 +24,6 @@ import 'package:hidjab_user/utils/icons/app_icons.dart';
 import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
-import '../../bloc/product/product_bloc.dart';
-import 'widgets/birinichi_turdagi_tovarlar_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,16 +35,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    Future.microtask(() {
-      context.read<ProductBloc>().add(
-            GetProductsEvent(),
-          );
-      context.read<UserBloc>().add(
-            GetUserEvent(
-              userId: FirebaseAuth.instance.currentUser!.uid,
-            ),
-          );
-    });
+    Future.microtask(
+      () {
+        context.read<ProductBloc>().add(
+              GetProductsEvent(),
+            );
+        context.read<UserBloc>().add(
+              GetUserEvent(
+                userId: FirebaseAuth.instance.currentUser!.uid,
+              ),
+            );
+      },
+    );
     Future.microtask(
       () => context.read<NabiBloc>().add(
             GetCategoryEvent(
@@ -108,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 14.w, bottom: 5.h, top: 5.h),
+                padding: EdgeInsets.only(left: 14.w, bottom: 5.h, top: 5.h, right: 14.w),
                 child: MyTextField(
                   controller: textEditingController,
                   type: TextInputType.text,
@@ -133,6 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
+
                         }
                         if (state.formStatus == FormsStatus.error) {
                           return Center(
@@ -145,14 +148,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Row(
                               children: [
                                 CategoryButton(
-                                    title: "All",
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        RouteNames.categoryScreen,
-                                        arguments: ["All"],
-                                      );
-                                    }),
+                                  title: "All",
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteNames.categoryScreen,
+                                      arguments: ["All"],
+                                    );
+                                  },
+                                ),
                                 ...List.generate(
                                   state.listenableCategories.length,
                                   (index) => CategoryButton(
@@ -160,13 +164,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                         .categoryName,
                                     onTap: () {
                                       Navigator.pushNamed(
-                                          context, RouteNames.categoryScreen,
-                                          arguments: [
-                                            state.listenableCategories[index]
-                                                .docId,
-                                            state.listenableCategories[index]
-                                                .categoryName
-                                          ]);
+                                        context,
+                                        RouteNames.categoryScreen,
+                                        arguments: [
+                                          state.listenableCategories[index]
+                                              .docId,
+                                          state.listenableCategories[index]
+                                              .categoryName
+                                        ],
+                                      );
                                     },
                                   ),
                                 ),
@@ -240,51 +246,58 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     BlocBuilder<NabiBloc, NabiState>(
                       builder: (context, state) {
-                        return Column(
-                          children: List.generate(
-                            state.categories.length,
-                            (i) => Container(
-                              width: width,
-                              decoration: const BoxDecoration(
-                                color: AppColors.white,
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 15.w, vertical: 18.h),
-                                    child: Text(
-                                      state.categories[i].categoryName,
-                                      style: AppTextStyle.width600
-                                          .copyWith(fontSize: 18.w),
+                        if(state.formStatus == FormsStatus.loading){
+                          return const CircularProgressIndicator();
+                        }
+                        if(state.formStatus == FormsStatus.error){
+                          return Text(state.errorText);
+                        }
+                        if(state.formStatus == FormsStatus.success){
+                          return Column(
+                            children: List.generate(
+                              state.categories.length,
+                                  (i) => Container(
+                                width: width,
+                                decoration: const BoxDecoration(
+                                  color: AppColors.white,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15.w, vertical: 18.h),
+                                      child: Text(
+                                        state.categories[i].categoryName,
+                                        style: AppTextStyle.width600
+                                            .copyWith(fontSize: 18.w),
+                                      ),
                                     ),
-                                  ),
-                                  BlocBuilder<NabiBloc, NabiState>(
+                                    BlocBuilder<NabiBloc, NabiState>(
                                       builder: (context, state) {
-                                    if (state.formStatus ==
-                                        FormsStatus.loading) {
-                                      return ListView.builder(
-                                        scrollDirection: Axis.horizontal,
-                                          itemCount: 5,
-                                          itemBuilder: (context, index) {
-                                            return ShimmerItem(
-                                              width: 150.w,
-                                              height: 200.h,
-                                            );
-                                          });
-                                    }
-                                    if (state.formStatus ==
-                                        FormsStatus.success) {
-                                      return SizedBox(
-                                        height: 245.h,
-                                        child: ListView.builder(
+                                        if (state.formStatus ==
+                                            FormsStatus.loading) {
+                                          return ListView.builder(
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: state.products[i].length,
+                                            itemCount: 5,
                                             itemBuilder: (context, index) {
-                                              return OneMethodTovarITem(
-                                                  image: state
-                                                      .products[i][index]
+                                              return ShimmerItem(
+                                                width: 150.w,
+                                                height: 200.h,
+                                              );
+                                            },
+                                          );
+                                        }
+                                        if (state.formStatus ==
+                                            FormsStatus.success) {
+                                          return SizedBox(
+                                            height: 245.h,
+                                            child: ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: state.products[i].length,
+                                              itemBuilder: (context, index) {
+                                                return OneMethodTovarITem(
+                                                  image: state.products[i][index]
                                                       .imageUrl,
                                                   firstTitle: state
                                                       .products[i][index]
@@ -298,76 +311,74 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       MaterialPageRoute(
                                                         builder: (context) =>
                                                             ProductDetailsScreen(
-                                                          productModel:
-                                                              state.products[i]
-                                                                  [index],
-                                                        ),
+                                                              productModel: state
+                                                                  .products[i][index],
+                                                            ),
                                                       ),
                                                     );
-                                                  });
-                                              //   Padding(
-                                              //   padding:
-                                              //       const EdgeInsets.all(8.0),
-                                              //   child: Text(
-                                              //     state.products[i][index]
-                                              //         .productName,
-                                              //   ),
-                                              // );
-                                            }),
-                                      );
-                                    }
-                                    if (state.formStatus == FormsStatus.error) {
-                                      return Text(state.errorText);
-                                    }
-                                    if (state.formStatus ==
-                                        FormsStatus.loading) {
-                                      return const CircularProgressIndicator();
-                                    }
-                                    return const SizedBox.shrink();
-                                  }),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 15.w,
-                                      vertical: 10.h,
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          );
+                                        }
+                                        if (state.formStatus ==
+                                            FormsStatus.error) {
+                                          return Text(state.errorText);
+                                        }
+                                        if (state.formStatus ==
+                                            FormsStatus.loading) {
+                                          return const CircularProgressIndicator();
+                                        }
+                                        return const SizedBox.shrink();
+                                      },
                                     ),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Source now",
-                                          style: AppTextStyle.width500.copyWith(
-                                            color: Colors.blue,
-                                            fontSize: 16.w,
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 15.w,
+                                        vertical: 10.h,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "Source now",
+                                            style: AppTextStyle.width500.copyWith(
+                                              color: Colors.blue,
+                                              fontSize: 16.w,
+                                            ),
                                           ),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {
-                                            Navigator.pushNamed(context,
+                                          IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                context,
                                                 RouteNames.categoryScreen,
                                                 arguments: [
                                                   state.categories[i].docId,
-                                                  state.categories[i]
-                                                      .categoryName
-                                                ]);
-                                          },
-                                          icon: SvgPicture.asset(
-                                            AppIcons.arrowNext,
+                                                  state.categories[i].categoryName
+                                                ],
+                                              );
+                                            },
+                                            icon: SvgPicture.asset(
+                                              AppIcons.arrowNext,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 1.h,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.grey,
+                                    Container(
+                                      width: double.infinity,
+                                      height: 1.h,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.grey,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
+                          );
+                        }
+                        return const SizedBox.shrink();
                       },
                     ),
                     SizedBox(

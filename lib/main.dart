@@ -36,8 +36,6 @@ import 'package:hidjab_user/app/app.dart';
 import 'package:hidjab_user/data/repo/storage_repository.dart';
 import 'package:hidjab_user/firebase_options.dart';
 
-import 'servises/local_notifty_servises.dart';
-
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint(
     "BACKGROUND MODE DA PUSH NOTIFICATION KELDI:${message.notification!.title}",

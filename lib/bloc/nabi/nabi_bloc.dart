@@ -63,8 +63,15 @@ Future<List<List<ProductModel>>> func(NabiState state,
       state.categories[i].docId,
     );
 
-    debugPrint(
-        "ERROR----------------${networkResponse.errorText} LENGTH:-----------${networkResponse.data.runtimeType}");
+    if (networkResponse.errorText.isNotEmpty) {
+      debugPrint(
+        "ERROR----------------${networkResponse.errorText}",
+      );
+    } else {
+      debugPrint(
+        "LENGTH:-----------${networkResponse.data.runtimeType}",
+      );
+    }
 
     if (networkResponse.errorText.isEmpty) {
       pr.add(

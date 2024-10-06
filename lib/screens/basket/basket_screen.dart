@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,7 +17,6 @@ import 'package:hidjab_user/utils/image/appimage.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shimmer/shimmer.dart';
 
 class BasketScreen extends StatefulWidget {
   const BasketScreen({super.key});
