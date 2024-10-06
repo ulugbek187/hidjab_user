@@ -30,7 +30,7 @@ class _BasketScreenState extends State<BasketScreen> {
   void initState() {
     Future.microtask(
       () => context.read<BasketBloc>().add(
-            GetBasketEvent(),
+        ListenBasketEvent(),
           ),
     ).then((v) {
       debugPrint(
@@ -302,21 +302,3 @@ class _BasketScreenState extends State<BasketScreen> {
     );
   }
 }
-
-// List<int> countOfProductsList = [];
-//           if (state.baskets.isNotEmpty) {
-//             for (var element in state.baskets) {
-//               countOfProductsList.add(element.countOfProducts);
-//             }
-//           } else {}
-//           if (state.baskets.isEmpty) {
-//             return Center(
-//               child: Lottie.asset(AppImages.basket),
-//             );
-//           }
-//           if (state.formStatus == FormsStatus.loading) {
-//             return const Center(
-//               child: CircularProgressIndicator(),
-//             );
-//           }
-//           if (state.formStatus == FormsStatus.success) {
