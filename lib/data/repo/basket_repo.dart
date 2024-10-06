@@ -35,7 +35,7 @@ class BasketRepo {
       );
 
       for (var element in baskets) {
-        if (element.productName == basketModel.productName) {
+        if (element.userId == basketModel.userId && element.imageUrl == basketModel.imageUrl) {
           basketIsExists = true;
           bs = element.copyWith(
             allPrice: element.price * (element.countOfProducts + 1),

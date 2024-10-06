@@ -12,6 +12,8 @@ import 'package:hidjab_user/bloc/product/product_event.dart';
 import 'package:hidjab_user/bloc/product/product_state.dart';
 import 'package:hidjab_user/bloc/user/user_bloc.dart';
 import 'package:hidjab_user/data/form_status/form_status.dart';
+import 'package:hidjab_user/data/models/category_model.dart';
+import 'package:hidjab_user/data/models/product_model.dart';
 import 'package:hidjab_user/screens/detail_screen/detail_screen.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/birinichi_turdagi_tovarlar_item.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
@@ -291,6 +293,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         }
                                         if (state.formStatus ==
                                             FormsStatus.success) {
+                                         for(CategoryModel el in state.categories){
+                                           for(ProductModel element in state.products[i]){
+                                             debugPrint("${el.categoryName} of product is uuid: ${element.docId}",);
+                                           }
+                                         }
                                           return SizedBox(
                                             height: 245.h,
                                             child: ListView.builder(
