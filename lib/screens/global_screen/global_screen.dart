@@ -17,6 +17,7 @@ import 'package:hidjab_user/screens/global_screen/widgets/birinichi_turdagi_tova
 import 'package:hidjab_user/screens/global_screen/widgets/category_button.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_drawer.dart';
 import 'package:hidjab_user/screens/global_screen/widgets/my_text_field.dart';
+import 'package:hidjab_user/screens/global_widgets/shimmer_global_widget.dart';
 import 'package:hidjab_user/screens/global_widgets/simmer_item.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/colors/app_colors.dart';
@@ -247,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlocBuilder<NabiBloc, NabiState>(
                       builder: (context, state) {
                         if(state.formStatus == FormsStatus.loading){
-                          return const CircularProgressIndicator();
+                          return const GlobalShimmerWidget();
                         }
                         if(state.formStatus == FormsStatus.error){
                           return Text(state.errorText);
