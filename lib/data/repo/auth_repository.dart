@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hidjab_user/utils/exceptions/exceptions.dart';
-
 import '../response/network_response.dart';
 
 class AuthRepository {

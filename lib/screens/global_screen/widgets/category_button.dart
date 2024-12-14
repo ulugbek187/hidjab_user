@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hidjab_user/utils/colors/app_colors.dart';
 import 'package:hidjab_user/utils/styles/app_text_style.dart';
 import 'package:hidjab_user/utils/styles/size.dart';
-
-import '../../../utils/colors/app_colors.dart';
 
 class CategoryButton extends StatelessWidget {
   const CategoryButton({super.key, required this.title, required this.onTap});

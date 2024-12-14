@@ -65,6 +65,7 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                     return Container(
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
+                        border: Border.all(color: Colors.black,width: 2.w),
                         borderRadius: BorderRadius.circular(16.w),
                       ),
                       margin: EdgeInsets.symmetric(
@@ -80,8 +81,9 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.black,
+                                width: 2.w
                               ),
-                              borderRadius: BorderRadius.circular(16.w),
+                              borderRadius: BorderRadius.circular(12.w),
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12.w),

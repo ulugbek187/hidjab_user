@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hidjab_user/bloc/product/product_bloc.dart';
+import 'package:hidjab_user/bloc/product/product_event.dart';
 import 'package:hidjab_user/bloc/product/product_state.dart';
 import 'package:hidjab_user/screens/category_screen/widgets/grid_view_items.dart';
 import 'package:hidjab_user/screens/category_screen/widgets/sort_items.dart';
+import 'package:hidjab_user/screens/detail_screen/detail_screen.dart';
+import 'package:hidjab_user/screens/global_screen/widgets/my_text_field.dart';
 import 'package:hidjab_user/screens/routes.dart';
 import 'package:hidjab_user/utils/icons/app_icons.dart';
-import '../../bloc/product/product_event.dart';
-import '../../utils/styles/app_text_style.dart';
-import '../../utils/styles/size.dart';
-import '../detail_screen/detail_screen.dart';
-import '../global_screen/widgets/my_text_field.dart';
+import 'package:hidjab_user/utils/styles/app_text_style.dart';
+import 'package:hidjab_user/utils/styles/size.dart';
 import 'widgets/category_list_items.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -39,7 +39,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 categoryDocId: widget.category[0],
               ),
             );
-
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
     return Scaffold(
